@@ -12,7 +12,8 @@ val Typography = Typography(
     body1 = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        color = Dark,
     ),
     h3 = TextStyle(
         fontSize = 48.sp,
@@ -20,9 +21,15 @@ val Typography = Typography(
     ),
     h4 = TextStyle(
         fontSize = 26.sp,
-        color = Color.Black,
+        color = Dark,
         lineHeight = 29.sp,
         fontWeight = FontWeight.SemiBold,
+    ),
+    h5 = TextStyle(
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 24.sp,
+        letterSpacing = 0.sp,
+        color = Dark,
     ),
     subtitle1 = TextStyle(
         color = Grey500,
