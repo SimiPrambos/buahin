@@ -144,8 +144,8 @@ fun SignUpScreen() {
             }
             Spacer(modifier = Modifier.height(25.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
-                Text(text = "Don’t have an account? ")
-                Text(text = "Sign Up", color = Primary, modifier = Modifier.clickable { })
+                Text(text = "Already have an account? ")
+                Text(text = "Sign In", color = Primary, modifier = Modifier.clickable { })
             }
         }
     }
