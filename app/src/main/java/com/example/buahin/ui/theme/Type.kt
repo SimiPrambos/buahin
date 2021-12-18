@@ -25,7 +25,7 @@ val Typography = Typography(
         fontWeight = FontWeight.SemiBold,
     ),
     subtitle1 = TextStyle(
-        color = BasicGrey,
+        color = Grey500,
         fontWeight = FontWeight.Medium,
     )
     /* Other default text styles to override
