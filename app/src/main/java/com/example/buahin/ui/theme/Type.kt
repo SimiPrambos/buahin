@@ -38,6 +38,7 @@ val Typography = Typography(
         color = Dark,
     ),
     subtitle1 = TextStyle(
+        fontSize = 16.sp,
         color = Grey500,
         fontWeight = FontWeight.Medium,
     )
