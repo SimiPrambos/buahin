@@ -10,6 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -18,7 +19,9 @@ import com.example.buahin.config.AppNavigation
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Primary
+import com.example.buahin.ui.theme.Typography
 
+@ExperimentalMaterialApi
 @Composable
 fun MainNavigation() {
     val navController = rememberNavController()
@@ -52,8 +55,10 @@ fun MainNavigation() {
                         label = {
                             Text(
                                 text = item.label,
+                                style = Typography.caption,
                                 fontWeight = FontWeight.SemiBold,
-                                color = if (selected) Primary else Dark
+                                color = if (selected) Primary else Dark,
+                                fontSize = 11.sp,
                             )
                         },
                         selectedContentColor = Primary,
@@ -83,6 +88,7 @@ fun MainNavigation() {
     }
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun MainNavigationPreview() {
