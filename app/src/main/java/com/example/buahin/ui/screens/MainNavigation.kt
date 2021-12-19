@@ -30,8 +30,9 @@ fun MainNavigation() {
                 val currentRoute = navBackStackEntry?.destination?.route
 
                 AppNavigation.bottom.forEach { item ->
+                    val selected = currentRoute == item.route
                     BottomNavigationItem(
-                        selected = currentRoute == item.route,
+                        selected = selected,
                         onClick = {
                             navController.navigate(item.route) {
                                 navController.graph.startDestinationRoute?.let { route ->
@@ -49,7 +50,11 @@ fun MainNavigation() {
                             )
                         },
                         label = {
-                            Text(text = item.label, fontWeight = FontWeight.SemiBold)
+                            Text(
+                                text = item.label,
+                                fontWeight = FontWeight.SemiBold,
+                                color = if (selected) Primary else Dark
+                            )
                         },
                         selectedContentColor = Primary,
                         unselectedContentColor = Dark,
