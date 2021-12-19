@@ -20,11 +20,11 @@ import com.example.buahin.ui.theme.Typography
 @ExperimentalMaterialApi
 @Composable
 fun FavouriteCard() {
-    Card(modifier = Modifier.fillMaxWidth()) {
+    Card(modifier = Modifier.fillMaxWidth(), elevation = 0.dp) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(16.dp),
+                .padding(horizontal = 16.dp, vertical = 30.dp),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.apple),
