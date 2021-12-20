@@ -16,7 +16,7 @@ import com.example.buahin.ui.theme.Typography
 
 @Composable
 fun CenteredTopBar(title: String) {
-    TopAppBar(backgroundColor = Color.White, elevation = 1.dp) {
+    TopAppBar(backgroundColor = Color.White, elevation = 3.dp) {
         Text(
             text = title,
             textAlign = TextAlign.Center,
