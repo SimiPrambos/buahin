@@ -14,7 +14,7 @@ import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Typography
 
 @Composable
-fun Section(title: String) {
+fun Section(title: String, showMore: Boolean = true) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
@@ -25,12 +25,13 @@ fun Section(title: String) {
             style = Typography.h5,
             fontWeight = FontWeight.SemiBold,
         )
-        Text(
-            text = "See all",
-            color = Primary,
-            style = Typography.subtitle1,
-            fontWeight = FontWeight.SemiBold,
-        )
+        if (showMore)
+            Text(
+                text = "See all",
+                color = Primary,
+                style = Typography.subtitle1,
+                fontWeight = FontWeight.SemiBold,
+            )
     }
 }
 

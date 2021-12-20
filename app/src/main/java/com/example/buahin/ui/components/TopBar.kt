@@ -24,6 +24,7 @@ fun TopBar(
     elevation: Dp = 3.dp,
     onBackPressed: TopBarBackHandler? = null,
     trailing: @Composable() (() -> Unit)? = null,
+    backIcon: Int = R.drawable.ic_arrow_left,
 ) {
     TopAppBar(backgroundColor = Color.White, elevation = elevation) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -31,7 +32,7 @@ fun TopBar(
                 if (onBackPressed != null) {
                     IconButton(onClick = onBackPressed) {
                         Icon(
-                            painter = painterResource(id = R.drawable.ic_arrow_left),
+                            painter = painterResource(id = backIcon),
                             contentDescription = "",
                         )
                     }
