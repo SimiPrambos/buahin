@@ -16,7 +16,7 @@ import com.example.buahin.ui.theme.Shapes
 
 object RoundedButton {
     @Composable
-    fun filled(label: String, onClick: () -> Unit) {
+    fun Filled(label: String, onClick: () -> Unit) {
         Button(
             onClick = onClick,
             modifier = Modifier.fillMaxWidth(),
@@ -37,6 +37,6 @@ object RoundedButton {
 @Composable
 fun RoundedButtonFilledPreview() {
     BuahinTheme {
-        RoundedButton.filled(label = "Filled Button", onClick = {})
+        RoundedButton.Filled(label = "Filled Button", onClick = {})
     }
 }

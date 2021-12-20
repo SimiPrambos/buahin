@@ -9,6 +9,6 @@ import androidx.compose.ui.unit.dp
 import com.example.buahin.ui.theme.Grey300
 
 @Composable
-fun ItemDivider(horizontalPadding: Dp = 20.dp) {
+fun ItemDivider(horizontalPadding: Dp = 16.dp) {
     Divider(color = Grey300, modifier = Modifier.padding(horizontal = horizontalPadding))
 }

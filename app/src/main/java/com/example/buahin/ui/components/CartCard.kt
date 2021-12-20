@@ -35,13 +35,16 @@ fun CartCard() {
     }
 
     Card(modifier = Modifier.fillMaxWidth(), elevation = 0.dp) {
-        Row(modifier = Modifier.padding(16.dp)) {
+        Row(
+            modifier = Modifier.padding(vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.apple),
                 contentDescription = "",
                 contentScale = ContentScale.Fit,
                 alignment = Alignment.Center,
-                modifier = Modifier.size(50.dp)
+                modifier = Modifier.size(80.dp)
             )
             Spacer(modifier = Modifier.width(16.dp))
             Column() {

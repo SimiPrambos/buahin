@@ -24,7 +24,7 @@ fun CartScreen() {
             repeat(5) {
                 item {
                     CartCard()
-                    ItemDivider()
+                    ItemDivider(0.dp)
                 }
             }
         }

@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.buahin.ui.components.CenteredTopBar
 import com.example.buahin.ui.components.FavouriteCard
+import com.example.buahin.ui.components.ItemDivider
 import com.example.buahin.ui.theme.*
 
 @Composable
@@ -20,7 +21,7 @@ fun FavouriteScreen() {
             repeat(10) {
                 item {
                     FavouriteCard()
-                    Divider(color = Grey300, modifier = Modifier.padding(horizontal = 20.dp))
+                    ItemDivider()
                 }
             }
         }

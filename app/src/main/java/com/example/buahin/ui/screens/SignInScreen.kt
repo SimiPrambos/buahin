@@ -113,7 +113,7 @@ fun SignInScreen() {
                 }
             }
             Spacer(modifier = Modifier.height(30.dp))
-            RoundedButton.filled(label = "Sign In", onClick = {})
+            RoundedButton.Filled(label = "Sign In", onClick = {})
             Spacer(modifier = Modifier.height(25.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Don’t have an account? ")
