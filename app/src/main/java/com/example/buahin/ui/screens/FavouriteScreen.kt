@@ -17,17 +17,7 @@ import com.example.buahin.ui.theme.*
 @Composable
 fun FavouriteScreen() {
     Scaffold(
-        topBar = {
-            TopAppBar(backgroundColor = Color.White, elevation = 1.dp) {
-                Text(
-                    text = "Favourite",
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth(),
-                    style = Typography.h6,
-                    fontWeight = FontWeight.Bold,
-                )
-            }
-        },
+        topBar = { CenteredTopBar(title = "Favourite") },
     ) {
         LazyColumn() {
             repeat(10) {
