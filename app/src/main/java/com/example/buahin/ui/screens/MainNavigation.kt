@@ -87,7 +87,6 @@ fun MainNavigation() {
     }
 }
 
-@ExperimentalMaterialApi
 @Preview
 @Composable
 fun MainNavigationPreview() {
