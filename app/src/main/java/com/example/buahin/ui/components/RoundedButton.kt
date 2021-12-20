@@ -16,10 +16,10 @@ import com.example.buahin.ui.theme.Shapes
 
 object RoundedButton {
     @Composable
-    fun Filled(label: String, onClick: () -> Unit) {
+    fun Filled(label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
         Button(
             onClick = onClick,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             shape = Shapes.large,
             contentPadding = PaddingValues(vertical = 20.dp),
             colors = ButtonDefaults.buttonColors(

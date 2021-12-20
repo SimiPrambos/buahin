@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.FabPosition
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateMapOf
@@ -12,10 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.buahin.R
-import com.example.buahin.ui.components.CheckboxValue
-import com.example.buahin.ui.components.MultipleCheckbox
-import com.example.buahin.ui.components.Section
-import com.example.buahin.ui.components.TopBar
+import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Grey200
 
@@ -46,7 +44,15 @@ fun FilterScreen() {
                 onBackPressed = {},
                 elevation = 0.dp,
             )
-        }
+        },
+        floatingActionButton = {
+            RoundedButton.Filled(
+                "Apply Filter",
+                onClick = {},
+                modifier = Modifier.padding(horizontal = 20.dp),
+            )
+        },
+        floatingActionButtonPosition = FabPosition.Center,
     ) {
         Column {
             Spacer(modifier = Modifier.height(20.dp))
