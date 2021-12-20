@@ -10,7 +10,6 @@ import com.example.buahin.ui.screens.MainNavigation
 import com.example.buahin.ui.theme.BuahinTheme
 
 class MainActivity : ComponentActivity() {
-    @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

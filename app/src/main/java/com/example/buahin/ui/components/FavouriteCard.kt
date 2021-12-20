@@ -17,7 +17,6 @@ import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Grey500
 import com.example.buahin.ui.theme.Typography
 
-@ExperimentalMaterialApi
 @Composable
 fun FavouriteCard() {
     Card(modifier = Modifier.fillMaxWidth(), elevation = 0.dp) {
@@ -61,44 +60,9 @@ fun FavouriteCard() {
                 tint = Dark,
             )
         }
-//        ListItem(
-//            icon = {
-//            },
-//            text = {
-//                Text(
-//                    text = "Sprite Can",
-//                    style = Typography.subtitle1,
-//                    fontWeight = FontWeight.Bold,
-//                    color = Dark,
-//                )
-//            },
-//            secondaryText = {
-//                Text(
-//                    text = "325ml, Price",
-//                    style = Typography.subtitle2,
-//                    fontWeight = FontWeight.Medium,
-//                    color = Grey500,
-//                )
-//            },
-//            trailing = {
-//                Row(verticalAlignment = Alignment.Bottom) {
-//                    Text(
-//                        text = "Rp. 10.500",
-//                        style = Typography.subtitle2,
-//                        fontWeight = FontWeight.SemiBold,
-//                        color = Dark,
-//                    )
-//                    Icon(
-//                        painter = painterResource(id = R.drawable.ic_shop),
-//                        contentDescription = ""
-//                    )
-//                }
-//            }
-//        )
     }
 }
 
-@ExperimentalMaterialApi
 @Preview
 @Composable
 fun FavouriteCardPreview() {
