@@ -1,7 +1,6 @@
 package com.example.buahin.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -14,12 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.example.buahin.R
-import com.example.buahin.ui.theme.Grey500
-import com.example.buahin.ui.theme.BuahinTheme
-import com.example.buahin.ui.theme.Dark
-import com.example.buahin.ui.theme.Grey200
+import com.example.buahin.ui.theme.*
 
 @Composable
 fun SearchBox() {
@@ -30,7 +25,7 @@ fun SearchBox() {
     TextField(
         value = queryState.value,
         onValueChange = { queryState.value = it },
-        shape = RoundedCornerShape(15.dp),
+        shape = Shapes.medium,
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = Grey200,
             textColor = Dark,

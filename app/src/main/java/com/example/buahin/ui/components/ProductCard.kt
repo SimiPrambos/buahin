@@ -3,7 +3,6 @@ package com.example.buahin.ui.components
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +18,7 @@ import com.example.buahin.ui.theme.*
 @Composable
 fun ProductCard(title: String, subtitle: String, price: String) {
     Card(
-        shape = RoundedCornerShape(18.dp),
+        shape = Shapes.large,
         modifier = Modifier.size(170.dp, 225.dp),
         border = BorderStroke(0.5.dp, Grey300),
         elevation = 0.dp,

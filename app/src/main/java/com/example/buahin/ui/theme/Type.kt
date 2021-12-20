@@ -52,13 +52,14 @@ val Typography = Typography(
         fontSize = 16.sp,
         color = Grey500,
         fontWeight = FontWeight.Medium,
-    )
-    /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
     ),
+    button = TextStyle(
+        color = Color.White,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.SemiBold,
+        lineHeight = 18.sp,
+    ),
+    /* Other default text styles to override
     caption = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,

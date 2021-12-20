@@ -2,13 +2,11 @@ package com.example.buahin.ui.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -17,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.buahin.R
 import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Grey200
+import com.example.buahin.ui.theme.Shapes
 import com.example.buahin.ui.theme.Typography
 
 object CategoryCard {
@@ -24,7 +23,7 @@ object CategoryCard {
     fun Horizontal(title: String) {
         Card(
             backgroundColor = Grey200,
-            shape = RoundedCornerShape(18.dp),
+            shape = Shapes.large,
             elevation = 0.dp,
         ) {
             Row(
@@ -52,7 +51,7 @@ object CategoryCard {
     fun Vertical(title: String) {
         Card(
             backgroundColor = Grey200,
-            shape = RoundedCornerShape(18.dp),
+            shape = Shapes.large,
             elevation = 0.dp,
             modifier = Modifier.width(170.dp),
         ) {

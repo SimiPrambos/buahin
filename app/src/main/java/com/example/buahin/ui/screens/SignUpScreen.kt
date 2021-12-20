@@ -2,7 +2,6 @@ package com.example.buahin.ui.screens
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -22,8 +21,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buahin.R
+import com.example.buahin.ui.components.RoundedButton
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Primary
+import com.example.buahin.ui.theme.Shapes
 import com.example.buahin.ui.theme.Typography
 
 @Composable
@@ -74,7 +75,7 @@ fun SignUpScreen() {
                 onValueChange = { nameState.value = it },
                 placeholder = { Text(text = "John Doe") },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
+                shape = Shapes.small,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next,
@@ -93,7 +94,7 @@ fun SignUpScreen() {
                 onValueChange = { emailState.value = it },
                 placeholder = { Text(text = "you@mail.com") },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
+                shape = Shapes.small,
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Email,
                     imeAction = ImeAction.Next,
@@ -112,7 +113,7 @@ fun SignUpScreen() {
                 onValueChange = { passwordState.value = it },
                 placeholder = { Text(text = "my secret password") },
                 modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(8.dp),
+                shape = Shapes.small,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = KeyboardType.Password,
@@ -134,14 +135,7 @@ fun SignUpScreen() {
                 }
             }
             Spacer(modifier = Modifier.height(30.dp))
-            Button(
-                onClick = { /*TODO*/ },
-                modifier = Modifier.fillMaxWidth(),
-                shape = RoundedCornerShape(18.dp),
-                contentPadding = PaddingValues(vertical = 20.dp)
-            ) {
-                Text(text = "Sign In")
-            }
+            RoundedButton.filled(label = "Sign Up", onClick = {})
             Spacer(modifier = Modifier.height(25.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Already have an account? ")
