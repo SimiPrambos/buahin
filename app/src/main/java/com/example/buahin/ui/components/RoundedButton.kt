@@ -11,6 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.buahin.ui.theme.BuahinTheme
+import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Shapes
 
@@ -29,6 +30,22 @@ object RoundedButton {
             elevation = ButtonDefaults.elevation(0.dp),
         ) {
             Text(text = label)
+        }
+    }
+
+    @Composable
+    fun Text(label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+        Button(
+            onClick = onClick,
+            modifier = modifier.fillMaxWidth(),
+            shape = Shapes.large,
+            contentPadding = PaddingValues(vertical = 20.dp),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = Color.Transparent,
+            ),
+            elevation = ButtonDefaults.elevation(0.dp),
+        ) {
+            Text(text = label, color = Dark)
         }
     }
 }

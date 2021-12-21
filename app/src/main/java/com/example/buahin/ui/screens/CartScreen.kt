@@ -51,7 +51,7 @@ fun CartScreen() {
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
             ) {
-                repeat(10) {
+                repeat(3) {
                     CartCard()
                     ItemDivider(0.dp)
                 }
