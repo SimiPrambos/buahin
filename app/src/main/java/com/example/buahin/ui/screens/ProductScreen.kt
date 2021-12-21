@@ -20,7 +20,7 @@ import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.SizeMode
 
 @Composable
-fun ProductsScreen() {
+fun ProductScreen() {
     Scaffold(
         topBar = {
             TopBar(
@@ -64,8 +64,8 @@ fun ProductsScreen() {
 
 @Preview
 @Composable
-fun ProductsScreenPreview() {
+fun ProductScreenPreview() {
     BuahinTheme {
-        ProductsScreen()
+        ProductScreen()
     }
 }

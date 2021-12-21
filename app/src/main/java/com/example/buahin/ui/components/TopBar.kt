@@ -20,13 +20,15 @@ typealias TopBarBackHandler = () -> Unit
 
 @Composable
 fun TopBar(
-    title: String,
+    title: String? = null,
     elevation: Dp = 3.dp,
     onBackPressed: TopBarBackHandler? = null,
     trailing: @Composable() (() -> Unit)? = null,
     backIcon: Int = R.drawable.ic_arrow_left,
+    backgroundColor: Color = Color.White,
+    modifier: Modifier = Modifier,
 ) {
-    TopAppBar(backgroundColor = Color.White, elevation = elevation) {
+    TopAppBar(backgroundColor = backgroundColor, elevation = elevation, modifier = modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Box(modifier = Modifier.size(48.dp)) {
                 if (onBackPressed != null) {
@@ -38,13 +40,17 @@ fun TopBar(
                     }
                 }
             }
-            Text(
-                text = title,
-                textAlign = TextAlign.Center,
-                style = Typography.h6,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.weight(1f, true),
-            )
+            Box(modifier = Modifier.weight(1f, true)) {
+                if (title != null) {
+                    Text(
+                        text = title,
+                        textAlign = TextAlign.Center,
+                        style = Typography.h6,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.fillMaxWidth(),
+                    )
+                }
+            }
             Box(modifier = Modifier.size(48.dp)) {
                 trailing?.invoke()
             }
