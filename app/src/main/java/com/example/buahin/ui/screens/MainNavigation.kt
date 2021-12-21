@@ -21,6 +21,7 @@ import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Typography
 
+@ExperimentalMaterialApi
 @Composable
 fun MainNavigation() {
     val navController = rememberNavController()
@@ -87,6 +88,7 @@ fun MainNavigation() {
     }
 }
 
+@ExperimentalMaterialApi
 @Preview
 @Composable
 fun MainNavigationPreview() {
