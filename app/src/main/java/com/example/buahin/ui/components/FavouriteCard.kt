@@ -23,7 +23,7 @@ fun FavouriteCard() {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 30.dp),
+                .padding(horizontal = 16.dp, vertical = 20.dp),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.apple),

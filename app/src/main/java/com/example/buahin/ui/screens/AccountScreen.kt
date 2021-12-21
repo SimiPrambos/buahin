@@ -1,7 +1,8 @@
 package com.example.buahin.ui.screens
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -14,27 +15,26 @@ import com.example.buahin.config.AppNavigation
 import com.example.buahin.ui.components.ItemDivider
 import com.example.buahin.ui.components.ListItem
 import com.example.buahin.ui.components.ProfileCard
-import com.example.buahin.ui.components.RoundedButton
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Typography
 
 @Composable
 fun AccountScreen() {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
         ProfileCard()
         ItemDivider(0.dp)
-        LazyColumn {
-            AppNavigation.settings.forEach { setting ->
-                item {
-                    ListItem(
-                        icon = setting.icon,
-                        title = setting.label,
-                        onClick = {}
-                    )
-                }
-            }
+        AppNavigation.settings.forEach { setting ->
+            ListItem(
+                icon = setting.icon,
+                title = setting.label,
+                onClick = {}
+            )
         }
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
         Text(
             text = "Logout",
             style = Typography.button,
@@ -42,6 +42,7 @@ fun AccountScreen() {
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
+        Spacer(modifier = Modifier.height(65.dp))
     }
 }
 
