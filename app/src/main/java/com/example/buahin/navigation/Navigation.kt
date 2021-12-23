@@ -52,15 +52,14 @@ class Navigation(private val navController: NavHostController) {
     @ExperimentalMaterialApi
     @Composable
     fun Build() {
-        val showBottomBar = remember { mutableStateOf(false) }
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+        val showBottomBar = BOTTOMS.any { it.route == currentRoute }
 
         Scaffold(
             bottomBar = {
-                if (showBottomBar.value)
+                if (showBottomBar)
                     BottomNavigation(backgroundColor = Color.White) {
-                        val navBackStackEntry by navController.currentBackStackEntryAsState()
-                        val currentRoute = navBackStackEntry?.destination?.route
-
                         BOTTOMS.forEach { item ->
                             val selected = currentRoute == item.route
                             BottomNavigationItem(

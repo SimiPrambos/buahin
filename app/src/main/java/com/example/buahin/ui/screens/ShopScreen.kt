@@ -6,17 +6,28 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
+import com.example.buahin.viewmodel.ShopEvent
+import com.example.buahin.viewmodel.ShopViewModel
 import cz.levinzonr.saferoute.core.annotations.Route
 
 @Route("shop")
 @Composable
-fun ShopScreen() {
+fun ShopScreen(vm: ShopViewModel = hiltViewModel()) {
+    val state = vm.state.value
+
+    LaunchedEffect(true) {
+        vm.onEvent(ShopEvent.LoadOffer)
+        vm.onEvent(ShopEvent.LoadCategory)
+        vm.onEvent(ShopEvent.LoadBestSeller)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -31,14 +42,9 @@ fun ShopScreen() {
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             item { }
-            item {
-                ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
-            }
-            item {
-                ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
-            }
-            item {
-                ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
+            items(state.offers.size) { index ->
+                val item = state.offers[index]
+                ProductCard(item.name, item.summary, "Rp. ${item.price}")
             }
             item { }
         }
@@ -49,14 +55,9 @@ fun ShopScreen() {
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             item { }
-            item {
-                CategoryCard.Horizontal("Fruits")
-            }
-            item {
-                CategoryCard.Horizontal("Vegetables")
-            }
-            item {
-                CategoryCard.Horizontal("Meat & Fish")
+            items(state.categories.size) { index ->
+                val item = state.categories[index]
+                CategoryCard.Horizontal(item.name)
             }
             item { }
         }
@@ -67,14 +68,9 @@ fun ShopScreen() {
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             item { }
-            item {
-                ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
-            }
-            item {
-                ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
-            }
-            item {
-                ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
+            items(state.bestSeller.size) { index ->
+                val item = state.bestSeller[index]
+                ProductCard(item.name, item.summary, "Rp. ${item.price}")
             }
             item { }
         }
