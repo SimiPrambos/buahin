@@ -16,7 +16,9 @@ import com.example.buahin.R
 import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Grey200
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("filter")
 @Composable
 fun FilterScreen() {
     val categories = remember {

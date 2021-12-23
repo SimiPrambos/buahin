@@ -12,12 +12,12 @@ import com.example.buahin.R
 import com.example.buahin.ui.theme.BuahinTheme
 
 @Composable
-fun Banner() {
+fun Banner(modifier: Modifier = Modifier) {
     Image(
         painter = painterResource(id = R.drawable.banner),
         contentDescription = "",
         contentScale = ContentScale.FillWidth,
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
     )
 }
 

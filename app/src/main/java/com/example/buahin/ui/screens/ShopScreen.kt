@@ -6,29 +6,31 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("shop")
 @Composable
 fun ShopScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
-            .verticalScroll(
-                rememberScrollState()
-            ),
+            .verticalScroll(rememberScrollState()),
     ) {
-        SearchBox()
-        Spacer(modifier = Modifier.height(20.dp))
-        Banner()
-        Spacer(modifier = Modifier.height(30.dp))
-        Section("Exclusive Offer")
-        Spacer(modifier = Modifier.height(20.dp))
+        SearchBox(modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp))
+        Banner(modifier = Modifier.padding(horizontal = 16.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        Section(
+            "Exclusive Offer",
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+        )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
+            item { }
             item {
                 ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
             }
@@ -38,11 +40,15 @@ fun ShopScreen() {
             item {
                 ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
             }
+            item { }
         }
-        Spacer(modifier = Modifier.height(30.dp))
-        Section("Categories")
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        Section(
+            "Categories",
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+        )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
+            item { }
             item {
                 CategoryCard.Horizontal("Fruits")
             }
@@ -52,11 +58,15 @@ fun ShopScreen() {
             item {
                 CategoryCard.Horizontal("Meat & Fish")
             }
+            item { }
         }
-        Spacer(modifier = Modifier.height(30.dp))
-        Section("Best Selling")
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
+        Section(
+            "Best Selling",
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+        )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
+            item { }
             item {
                 ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
             }
@@ -66,8 +76,8 @@ fun ShopScreen() {
             item {
                 ProductCard("Organic Banana", "7pcs, Price", "Rp. 14.500")
             }
+            item { }
         }
-        Spacer(modifier = Modifier.height(50.dp))
     }
 }
 

@@ -9,22 +9,28 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.buahin.R
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Typography
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("onboarding")
 @Composable
-fun OnboardingScreen() {
+fun OnboardingScreen(navController: NavController) {
     Box {
         Image(
             painter = painterResource(id = R.drawable.onboarding),
             contentDescription = "",
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.FillBounds,
         )
         Column(
             modifier = Modifier
@@ -52,7 +58,10 @@ fun OnboardingScreen() {
             )
             Spacer(modifier = Modifier.height(40.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.popBackStack()
+                    navController.navigateToSignIn()
+                },
                 modifier = Modifier.fillMaxWidth(),
                 shape = RoundedCornerShape(18.dp),
                 contentPadding = PaddingValues(vertical = 20.dp)
@@ -68,6 +77,6 @@ fun OnboardingScreen() {
 @Composable
 fun OnboardingScreenPreview() {
     BuahinTheme {
-        OnboardingScreen()
+        OnboardingScreen(rememberNavController())
     }
 }

@@ -20,15 +20,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.buahin.R
 import com.example.buahin.ui.components.RoundedButton
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Shapes
 import com.example.buahin.ui.theme.Typography
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("signIn")
 @Composable
-fun SignInScreen() {
+fun SignInScreen(navController: NavController) {
     val emailState = remember {
         mutableStateOf(TextFieldValue())
     }
@@ -104,7 +108,7 @@ fun SignInScreen() {
                     .fillMaxWidth()
                     .padding(top = 16.dp)
             ) {
-                TextButton(onClick = { /*TODO*/ }) {
+                TextButton(onClick = { }) {
                     Text(
                         text = "Forgot Password?",
                         color = Color.Black,
@@ -113,11 +117,17 @@ fun SignInScreen() {
                 }
             }
             Spacer(modifier = Modifier.height(30.dp))
-            RoundedButton.Filled(label = "Sign In", onClick = {})
+            RoundedButton.Filled(label = "Sign In", onClick = {
+                navController.popBackStack()
+                navController.navigateToShop()
+            })
             Spacer(modifier = Modifier.height(25.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Don’t have an account? ")
-                Text(text = "Sign Up", color = Primary, modifier = Modifier.clickable { })
+                Text(text = "Sign Up", color = Primary, modifier = Modifier.clickable {
+                    navController.popBackStack()
+                    navController.navigateToSignUp()
+                })
             }
         }
     }
@@ -127,6 +137,6 @@ fun SignInScreen() {
 @Composable
 fun SignInScreenPreview() {
     BuahinTheme {
-        SignInScreen()
+        SignInScreen(rememberNavController())
     }
 }

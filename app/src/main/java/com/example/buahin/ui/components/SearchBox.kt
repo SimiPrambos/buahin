@@ -17,7 +17,7 @@ import com.example.buahin.R
 import com.example.buahin.ui.theme.*
 
 @Composable
-fun SearchBox() {
+fun SearchBox(modifier: Modifier = Modifier) {
     val queryState = remember {
         mutableStateOf(TextFieldValue())
     }
@@ -34,7 +34,7 @@ fun SearchBox() {
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
         ),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         leadingIcon = {
             Icon(
                 painter = painterResource(id = R.drawable.ic_search),

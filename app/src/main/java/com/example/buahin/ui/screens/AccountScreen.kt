@@ -11,13 +11,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.buahin.config.AppNavigation
+import com.example.buahin.navigation.Navigation
 import com.example.buahin.ui.components.ItemDivider
 import com.example.buahin.ui.components.ListItem
 import com.example.buahin.ui.components.ProfileCard
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Typography
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("account")
 @Composable
 fun AccountScreen() {
     Column(
@@ -27,7 +29,7 @@ fun AccountScreen() {
     ) {
         ProfileCard()
         ItemDivider(0.dp)
-        AppNavigation.settings.forEach { setting ->
+        Navigation.SETTINGS.forEach { setting ->
             ListItem(
                 icon = setting.icon,
                 title = setting.label,
@@ -42,7 +44,6 @@ fun AccountScreen() {
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
-        Spacer(modifier = Modifier.height(65.dp))
     }
 }
 

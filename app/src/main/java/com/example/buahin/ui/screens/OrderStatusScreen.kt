@@ -16,6 +16,7 @@ import com.example.buahin.R
 import com.example.buahin.ui.components.RoundedButton
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Typography
+import cz.levinzonr.saferoute.core.annotations.Route
 
 sealed class OrderStatusValue(
     val image: Int,
@@ -38,6 +39,7 @@ sealed class OrderStatusValue(
     )
 }
 
+@Route("orderStatus")
 @Composable
 fun OrderStatusScreen(
     status: OrderStatusValue = OrderStatusValue.Accepted,

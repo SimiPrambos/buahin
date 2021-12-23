@@ -18,7 +18,9 @@ import com.example.buahin.ui.theme.BuahinTheme
 import com.google.accompanist.flowlayout.FlowMainAxisAlignment
 import com.google.accompanist.flowlayout.FlowRow
 import com.google.accompanist.flowlayout.SizeMode
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("product")
 @Composable
 fun ProductScreen() {
     Scaffold(

@@ -22,7 +22,7 @@ import com.example.buahin.ui.theme.*
 
 @Composable
 fun CheckoutScreen(onCancelPressed: () -> Unit) {
-    Card(shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp)) {
+    Card() {
         Column {
             Row(
                 modifier = Modifier
@@ -102,9 +102,8 @@ fun CheckoutScreen(onCancelPressed: () -> Unit) {
             RoundedButton.Filled(
                 "Place Order",
                 onClick = {},
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 32.dp),
+                modifier = Modifier.padding(16.dp),
             )
-            Spacer(modifier = Modifier.height(70.dp))
         }
     }
 }

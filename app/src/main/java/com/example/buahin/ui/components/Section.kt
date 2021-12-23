@@ -14,9 +14,9 @@ import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Typography
 
 @Composable
-fun Section(title: String, showMore: Boolean = true) {
+fun Section(title: String, showMore: Boolean = true, modifier: Modifier = Modifier) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {

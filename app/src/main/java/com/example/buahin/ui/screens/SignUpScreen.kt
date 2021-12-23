@@ -20,15 +20,19 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.buahin.R
 import com.example.buahin.ui.components.RoundedButton
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Shapes
 import com.example.buahin.ui.theme.Typography
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("signUp")
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(navController: NavController) {
     val nameState = remember {
         mutableStateOf(TextFieldValue())
     }
@@ -135,11 +139,17 @@ fun SignUpScreen() {
                 }
             }
             Spacer(modifier = Modifier.height(30.dp))
-            RoundedButton.Filled(label = "Sign Up", onClick = {})
+            RoundedButton.Filled(label = "Sign Up", onClick = {
+                navController.popBackStack()
+                navController.navigateToShop()
+            })
             Spacer(modifier = Modifier.height(25.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Already have an account? ")
-                Text(text = "Sign In", color = Primary, modifier = Modifier.clickable { })
+                Text(text = "Sign In", color = Primary, modifier = Modifier.clickable {
+                    navController.popBackStack()
+                    navController.navigateToSignIn()
+                })
             }
         }
     }
@@ -149,6 +159,6 @@ fun SignUpScreen() {
 @Composable
 fun SignUpScreenPreview() {
     BuahinTheme {
-        SignUpScreen()
+        SignUpScreen(rememberNavController())
     }
 }

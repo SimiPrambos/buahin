@@ -19,10 +19,12 @@ import androidx.compose.ui.unit.sp
 import com.example.buahin.R
 import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.*
+import cz.levinzonr.saferoute.core.annotations.Route
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
+@Route("productDetail")
 @Composable
 fun ProductDetailScreen() {
     val scaffoldState = rememberCollapsingToolbarScaffoldState()

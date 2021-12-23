@@ -2,6 +2,7 @@ package com.example.buahin.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -14,8 +15,10 @@ import com.example.buahin.ui.components.TopBar
 import com.example.buahin.ui.components.ItemDivider
 import com.example.buahin.ui.components.RoundedButton
 import com.example.buahin.ui.theme.BuahinTheme
+import cz.levinzonr.saferoute.core.annotations.Route
 import kotlinx.coroutines.launch
 
+@Route("cart")
 @ExperimentalMaterialApi
 @Composable
 fun CartScreen() {
@@ -32,6 +35,7 @@ fun CartScreen() {
 
     ModalBottomSheetLayout(
         sheetState = bottomSheet,
+        sheetShape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp),
         sheetContent = { CheckoutScreen(onCancelPressed = { hideCheckoutDialog() }) },
     ) {
         Scaffold(
@@ -39,7 +43,7 @@ fun CartScreen() {
             floatingActionButton = {
                 RoundedButton.Filled(
                     "Go to Checkout",
-                    modifier = Modifier.padding(bottom = 60.dp, start = 16.dp, end = 16.dp),
+                    modifier = Modifier.padding(horizontal = 16.dp),
                     onClick = { showCheckoutDialog() },
                 )
             },

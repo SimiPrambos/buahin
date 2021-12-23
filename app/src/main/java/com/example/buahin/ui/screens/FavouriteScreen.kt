@@ -8,7 +8,9 @@ import com.example.buahin.ui.components.TopBar
 import com.example.buahin.ui.components.FavouriteCard
 import com.example.buahin.ui.components.ItemDivider
 import com.example.buahin.ui.theme.*
+import cz.levinzonr.saferoute.core.annotations.Route
 
+@Route("favourite")
 @Composable
 fun FavouriteScreen() {
     Scaffold(
