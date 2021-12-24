@@ -51,9 +51,14 @@ fun ExploreScreen(vm: ExploreViewModel = hiltViewModel()) {
             mainAxisAlignment = FlowMainAxisAlignment.SpaceBetween,
             crossAxisSpacing = 15.dp,
         ) {
-            state.categories.forEach { item ->
-                CategoryCard.Vertical(title = item.name)
-            }
+            if (state.categories.isEmpty())
+                repeat(4) {
+                    CategoryCard.Vertical()
+                }
+            else
+                state.categories.forEach { item ->
+                    CategoryCard.Vertical(title = item.name)
+                }
         }
     }
 }

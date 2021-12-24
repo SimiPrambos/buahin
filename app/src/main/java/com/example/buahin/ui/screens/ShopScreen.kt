@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.viewmodel.ShopEvent
@@ -19,7 +21,7 @@ import cz.levinzonr.saferoute.core.annotations.Route
 
 @Route("shop")
 @Composable
-fun ShopScreen(vm: ShopViewModel = hiltViewModel()) {
+fun ShopScreen(navController: NavController, vm: ShopViewModel = hiltViewModel()) {
     val state = vm.state.value
 
     LaunchedEffect(true) {
@@ -49,7 +51,9 @@ fun ShopScreen(vm: ShopViewModel = hiltViewModel()) {
             else
                 items(state.offers.size) { index ->
                     val item = state.offers[index]
-                    ProductCard(item.name, item.summary, "Rp. ${item.price}", item.thumbnail)
+                    ProductCard(item.name, item.summary, "Rp. ${item.price}", item.thumbnail) {
+                        navController.navigateToProductDetail(item.id)
+                    }
                 }
             item { }
         }
@@ -97,7 +101,7 @@ fun ShopScreen(vm: ShopViewModel = hiltViewModel()) {
 fun ShopScreenPreview() {
     BuahinTheme {
         Scaffold {
-            ShopScreen()
+            ShopScreen(rememberNavController())
         }
     }
 }

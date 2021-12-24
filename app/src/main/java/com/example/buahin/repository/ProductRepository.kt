@@ -28,4 +28,15 @@ class ProductRepository(private val firestore: FirebaseFirestore) {
             emptyList()
         }
     }
+
+    suspend fun findOne(id: String): Product? {
+        return try {
+            firestore.collectionGroup("products")
+                .whereEqualTo("id", id).get()
+                .await().documents.firstNotNullOfOrNull { it.toProduct() }
+        } catch (e: Exception) {
+            Log.println(Log.ERROR, "PRODUCT", e.toString())
+            null
+        }
+    }
 }

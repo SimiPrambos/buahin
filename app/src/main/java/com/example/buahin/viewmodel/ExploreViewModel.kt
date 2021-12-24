@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.buahin.model.Category
 import com.example.buahin.repository.CategoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,6 +22,7 @@ class ExploreViewModel @Inject constructor(
         when (event) {
             is ExploreEvent.Load -> {
                 viewModelScope.launch {
+                    delay(1000)
                     val categories = categoryRepository.findAll()
                     _state.value = _state.value.copy(categories = categories)
                 }

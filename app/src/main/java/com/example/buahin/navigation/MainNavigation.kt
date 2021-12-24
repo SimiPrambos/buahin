@@ -11,7 +11,7 @@ import com.example.buahin.ui.screens.*
 fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) {
     navigation(route = route, startDestination = Routes.Shop.route) {
         composable(Routes.Shop.route) {
-            ShopScreen()
+            ShopScreen(navController)
         }
         composable(Routes.Explore.route) {
             ExploreScreen()
@@ -24,6 +24,9 @@ fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) 
         }
         composable(Routes.Account.route) {
             AccountScreen()
+        }
+        composable(Routes.ProductDetail.route) {
+            ProductDetailScreen()
         }
     }
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -16,140 +17,187 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.buahin.R
-import com.example.buahin.ui.components.*
-import com.example.buahin.ui.theme.*
+import com.example.buahin.ui.components.Counter
+import com.example.buahin.ui.components.ExpandableListTile
+import com.example.buahin.ui.components.RoundedButton
+import com.example.buahin.ui.components.TopBar
+import com.example.buahin.ui.theme.BuahinTheme
+import com.example.buahin.ui.theme.Grey200
+import com.example.buahin.ui.theme.Grey500
+import com.example.buahin.ui.theme.Typography
+import com.example.buahin.viewmodel.ProductDetailEvent
+import com.example.buahin.viewmodel.ProductDetailState
+import com.example.buahin.viewmodel.ProductDetailViewModel
 import cz.levinzonr.saferoute.core.annotations.Route
+import cz.levinzonr.saferoute.core.annotations.RouteArg
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
-@Route("productDetail")
+@Route("productDetail", [RouteArg(name = "id", isOptional = false)])
 @Composable
-fun ProductDetailScreen() {
-    val scaffoldState = rememberCollapsingToolbarScaffoldState()
-    Scaffold(
-        floatingActionButton = {
-            RoundedButton.Filled(
-                "Add to Cart",
-                onClick = {},
-                modifier = Modifier.padding(horizontal = 20.dp),
-            )
-        },
-        floatingActionButtonPosition = FabPosition.Center,
-    ) {
-        CollapsingToolbarScaffold(
-            modifier = Modifier.fillMaxSize(),
-            state = scaffoldState,
-            scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
-            toolbar = {
-                val radius = (25 * scaffoldState.toolbarState.progress).dp
+fun ProductDetailScreen(vm: ProductDetailViewModel = hiltViewModel()) {
+    val state = vm.state.value
+
+    LaunchedEffect(true) {
+        vm.onEvent(ProductDetailEvent.Load)
+    }
+
+    when (state) {
+        is ProductDetailState.Empty -> {
+            Scaffold {
                 Column(
+                    modifier = Modifier.fillMaxSize(),
                     verticalArrangement = Arrangement.Center,
-                    modifier = Modifier
-                        .height(300.dp)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(bottomStart = radius, bottomEnd = radius))
-                        .parallax(1f)
-                        .background(Grey200),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.apple_large),
-                        contentDescription = null,
+                    Text(text = "Product not found!")
+                }
+            }
+        }
+        is ProductDetailState.Success -> {
+            val scaffoldState = rememberCollapsingToolbarScaffoldState()
+            Scaffold(
+                floatingActionButton = {
+                    RoundedButton.Filled(
+                        "Add to Cart",
+                        onClick = {},
+                        modifier = Modifier.padding(horizontal = 20.dp),
+                    )
+                },
+                floatingActionButtonPosition = FabPosition.Center,
+            ) {
+                CollapsingToolbarScaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    state = scaffoldState,
+                    scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
+                    toolbar = {
+                        val radius = (25 * scaffoldState.toolbarState.progress).dp
+                        Column(
+                            verticalArrangement = Arrangement.Center,
+                            modifier = Modifier
+                                .height(300.dp)
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(bottomStart = radius, bottomEnd = radius))
+                                .parallax(1f)
+                                .background(Grey200),
+                        ) {
+                            Image(
+                                painter = painterResource(id = R.drawable.apple_large),
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .padding(45.dp)
+                            )
+                        }
+                        TopBar(
+                            elevation = 0.dp,
+                            backgroundColor = Color.Transparent,
+                            onBackPressed = {},
+                            modifier = Modifier.pin(),
+                            trailing = {
+                                IconButton(onClick = { /*TODO*/ }) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_share),
+                                        contentDescription = null
+                                    )
+
+                                }
+                            }
+                        )
+
+
+                    }
+                ) {
+                    LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(45.dp)
-                    )
-                }
-                TopBar(
-                    elevation = 0.dp,
-                    backgroundColor = Color.Transparent,
-                    onBackPressed = {},
-                    modifier = Modifier.pin(),
-                    trailing = {
-                        IconButton(onClick = { /*TODO*/ }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.ic_share),
-                                contentDescription = null
+                            .padding(horizontal = 16.dp)
+                    ) {
+                        item {
+                            Row(
+                                verticalAlignment = Alignment.Top,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(top = 16.dp),
+                            ) {
+                                Column(modifier = Modifier.weight(1f, true)) {
+                                    Text(
+                                        text = state.value.name,
+                                        style = Typography.h6,
+                                        fontWeight = FontWeight.Bold,
+                                    )
+                                    Text(
+                                        text = state.value.summary,
+                                        style = Typography.subtitle2,
+                                        lineHeight = 18.sp,
+                                        fontWeight = FontWeight.Medium,
+                                        color = Grey500,
+                                    )
+                                }
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_favourite),
+                                    contentDescription = "",
+                                    tint = Grey500,
+                                )
+                            }
+                        }
+                        item {
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 16.dp),
+                            ) {
+                                Counter(onDecreased = {}, onIncreased = {})
+                                Text(
+                                    text = "Rp. ${state.value.price}",
+                                    style = Typography.h6,
+                                    fontWeight = FontWeight.Bold,
+                                )
+                            }
+                        }
+                        if (!state.value.description.isNullOrEmpty())
+                            item {
+                                ExpandableListTile(
+                                    "Product Details",
+                                    state.value.description
+                                )
+                            }
+                        if (!state.value.nutrition.isNullOrEmpty())
+                            item {
+                                ExpandableListTile(
+                                    "Nutrition",
+                                    state.value.nutrition
+                                )
+                            }
+                        item {
+                            ExpandableListTile(
+                                "Review",
+                                "this is review"
                             )
-
                         }
                     }
-                )
-
-
+                }
             }
-        ) {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = 16.dp)
-            ) {
-                item {
-                    Row(
-                        verticalAlignment = Alignment.Top,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp),
-                    ) {
-                        Column(modifier = Modifier.weight(1f, true)) {
-                            Text(
-                                text = "Naturel Red Apple",
-                                style = Typography.h6,
-                                fontWeight = FontWeight.Bold,
-                            )
-                            Text(
-                                text = "1kg, Price",
-                                style = Typography.subtitle2,
-                                lineHeight = 18.sp,
-                                fontWeight = FontWeight.Medium,
-                                color = Grey500,
-                            )
-                        }
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_favourite),
-                            contentDescription = "",
-                            tint = Grey500,
-                        )
-                    }
-                }
-                item {
-                    Row(
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 16.dp),
-                    ) {
-                        Counter(onDecreased = {}, onIncreased = {})
-                        Text(
-                            text = "Rp. 120.000",
-                            style = Typography.h6,
-                            fontWeight = FontWeight.Bold,
-                        )
-                    }
-                }
-                item {
-                    ExpandableListTile(
-                        "Product Details",
-                        "Apples are nutritious. Apples may be good for weight loss. apples may be good for your heart. As part of a healtful and varied diet."
-                    )
-                }
-                item {
-                    ExpandableListTile(
-                        "Nutrition",
-                        "this is nutrition"
-                    )
-                }
-                item {
-                    ExpandableListTile(
-                        "Review",
-                        "this is review"
-                    )
+        }
+        else -> {
+            Scaffold {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    CircularProgressIndicator()
                 }
             }
         }
     }
+
+
 }
 
 @Preview

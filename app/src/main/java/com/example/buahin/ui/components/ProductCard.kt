@@ -2,6 +2,7 @@ package com.example.buahin.ui.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -25,7 +26,8 @@ fun ProductCard(
     title: String? = null,
     subtitle: String? = null,
     price: String? = null,
-    thumbnail: String? = null
+    thumbnail: String? = null,
+    onClick: () -> Unit = {}
 ) {
     val painter: Painter =
         if (thumbnail == null) painterResource(id = R.drawable.apple) else rememberImagePainter(
@@ -33,7 +35,9 @@ fun ProductCard(
         )
     Card(
         shape = Shapes.large,
-        modifier = Modifier.size(170.dp, 225.dp),
+        modifier = Modifier
+            .size(170.dp, 225.dp)
+            .clickable(onClick = onClick),
         border = BorderStroke(0.5.dp, Grey300),
         elevation = 0.dp,
     ) {

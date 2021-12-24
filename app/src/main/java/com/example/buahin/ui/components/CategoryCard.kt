@@ -51,7 +51,7 @@ object CategoryCard {
     }
 
     @Composable
-    fun Vertical(title: String) {
+    fun Vertical(title: String? = null) {
         Card(
             backgroundColor = Grey200,
             shape = Shapes.large,
@@ -71,14 +71,16 @@ object CategoryCard {
                     modifier = Modifier
                         .height(100.dp)
                         .padding(15.dp)
-                        .fillMaxWidth(),
+                        .fillMaxWidth()
+                        .placeholder(title.isNullOrEmpty()),
                 )
                 Text(
-                    text = title,
+                    text = title ?: "Buah & Sayur",
                     style = Typography.h6,
                     fontWeight = FontWeight.SemiBold,
                     color = Dark,
                     textAlign = TextAlign.Center,
+                    modifier = Modifier.placeholder(title.isNullOrEmpty())
                 )
             }
         }
