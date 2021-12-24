@@ -42,10 +42,15 @@ fun ShopScreen(vm: ShopViewModel = hiltViewModel()) {
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             item { }
-            items(state.offers.size) { index ->
-                val item = state.offers[index]
-                ProductCard(item.name, item.summary, "Rp. ${item.price}")
-            }
+            if (state.offers.isEmpty())
+                items(3) {
+                    ProductCard()
+                }
+            else
+                items(state.offers.size) { index ->
+                    val item = state.offers[index]
+                    ProductCard(item.name, item.summary, "Rp. ${item.price}", item.thumbnail)
+                }
             item { }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -55,10 +60,15 @@ fun ShopScreen(vm: ShopViewModel = hiltViewModel()) {
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             item { }
-            items(state.categories.size) { index ->
-                val item = state.categories[index]
-                CategoryCard.Horizontal(item.name)
-            }
+            if (state.categories.isEmpty())
+                items(3) {
+                    CategoryCard.Horizontal()
+                }
+            else
+                items(state.categories.size) { index ->
+                    val item = state.categories[index]
+                    CategoryCard.Horizontal(item.name)
+                }
             item { }
         }
         Spacer(modifier = Modifier.height(10.dp))
@@ -68,10 +78,15 @@ fun ShopScreen(vm: ShopViewModel = hiltViewModel()) {
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             item { }
-            items(state.bestSeller.size) { index ->
-                val item = state.bestSeller[index]
-                ProductCard(item.name, item.summary, "Rp. ${item.price}")
-            }
+            if (state.bestSeller.isEmpty())
+                items(3) {
+                    ProductCard()
+                }
+            else
+                items(state.bestSeller.size) { index ->
+                    val item = state.bestSeller[index]
+                    ProductCard(item.name, item.summary, "Rp. ${item.price}", item.thumbnail)
+                }
             item { }
         }
     }

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "483975616223",
+    "project_id": "buahin-2ce0c",
+    "storage_bucket": "buahin-2ce0c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483975616223:android:2519964f58876d6b347b6a",
+        "android_client_info": {
+          "package_name": "com.example.buahin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "483975616223-42t7112vv6mkto008ak92socadkkchl6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBY1aCko-bix5LuQZ73HlDpWTAAp_JctGQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "483975616223-42t7112vv6mkto008ak92socadkkchl6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

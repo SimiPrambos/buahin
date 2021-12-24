@@ -7,50 +7,89 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.example.buahin.R
 import com.example.buahin.ui.theme.*
+import com.google.accompanist.placeholder.material.placeholder
 
 @Composable
-fun ProductCard(title: String, subtitle: String, price: String) {
+fun ProductCard(
+    title: String? = null,
+    subtitle: String? = null,
+    price: String? = null,
+    thumbnail: String? = null
+) {
+    val painter: Painter =
+        if (thumbnail == null) painterResource(id = R.drawable.apple) else rememberImagePainter(
+            thumbnail
+        )
     Card(
         shape = Shapes.large,
         modifier = Modifier.size(170.dp, 225.dp),
         border = BorderStroke(0.5.dp, Grey300),
         elevation = 0.dp,
     ) {
-        Column(modifier = Modifier.padding(15.dp)) {
-            Image(
-                painter = painterResource(id = R.drawable.apple),
-                contentDescription = title,
-                modifier = Modifier.height(100.dp).fillMaxWidth(),
-            )
+        Column {
+            if (thumbnail.isNullOrEmpty()) {
+                Box(
+                    modifier = Modifier
+                        .height(120.dp)
+                        .fillMaxWidth()
+                        .placeholder(thumbnail == null)
+                )
+            } else {
+                Image(
+                    painter = painter,
+                    contentDescription = title,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .height(120.dp)
+                        .fillMaxWidth(),
+                )
+            }
             Spacer(modifier = Modifier.height(15.dp))
             Text(
-                text = title,
+                text = title ?: "This is title",
                 style = Typography.subtitle1,
                 lineHeight = 18.sp,
                 fontWeight = FontWeight.Bold,
                 color = Dark,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 15.dp)
+                    .placeholder(title.isNullOrEmpty()),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
+            Spacer(modifier = Modifier.height(3.dp))
             Text(
-                text = subtitle,
+                text = subtitle ?: "subtitle",
                 style = Typography.subtitle2,
                 lineHeight = 18.sp,
                 fontWeight = FontWeight.Medium,
                 color = Grey500,
+                modifier = Modifier
+                    .padding(horizontal = 15.dp)
+                    .placeholder(subtitle.isNullOrEmpty()),
             )
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = price,
+                text = price ?: "Rp. 123456",
                 style = Typography.subtitle1,
                 lineHeight = 18.sp,
                 fontWeight = FontWeight.SemiBold,
                 color = Dark,
+                modifier = Modifier
+                    .padding(horizontal = 15.dp)
+                    .placeholder(price.isNullOrEmpty()),
             )
         }
     }

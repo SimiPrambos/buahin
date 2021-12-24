@@ -17,10 +17,11 @@ import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Grey200
 import com.example.buahin.ui.theme.Shapes
 import com.example.buahin.ui.theme.Typography
+import com.google.accompanist.placeholder.material.placeholder
 
 object CategoryCard {
     @Composable
-    fun Horizontal(title: String) {
+    fun Horizontal(title: String? = null) {
         Card(
             backgroundColor = Grey200,
             shape = Shapes.large,
@@ -35,13 +36,15 @@ object CategoryCard {
                     contentDescription = "",
                     modifier = Modifier
                         .size(100.dp)
-                        .padding(15.dp),
+                        .padding(15.dp)
+                        .placeholder(title.isNullOrEmpty()),
                 )
                 Text(
-                    text = title,
+                    text = title ?: "Category",
                     style = Typography.h6,
                     fontWeight = FontWeight.SemiBold,
                     color = Dark,
+                    modifier = Modifier.placeholder(title.isNullOrEmpty())
                 )
             }
         }
@@ -56,7 +59,9 @@ object CategoryCard {
             modifier = Modifier.width(170.dp),
         ) {
             Column(
-                modifier = Modifier.fillMaxWidth().padding(15.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceAround,
             ) {
