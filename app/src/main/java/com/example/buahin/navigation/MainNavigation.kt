@@ -14,7 +14,7 @@ fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) 
             ShopScreen(navController)
         }
         composable(Routes.Explore.route) {
-            ExploreScreen()
+            ExploreScreen(navController)
         }
         composable(Routes.Cart.route) {
             CartScreen()
@@ -25,8 +25,11 @@ fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) 
         composable(Routes.Account.route) {
             AccountScreen()
         }
+        composable(Routes.Products.route) {
+            ProductScreen(navController)
+        }
         composable(Routes.ProductDetail.route) {
-            ProductDetailScreen()
+            ProductDetailScreen(navController)
         }
     }
 }

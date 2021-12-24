@@ -1,6 +1,7 @@
 package com.example.buahin.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Text
@@ -21,11 +22,12 @@ import com.google.accompanist.placeholder.material.placeholder
 
 object CategoryCard {
     @Composable
-    fun Horizontal(title: String? = null) {
+    fun Horizontal(title: String? = null, onClick: () -> Unit = {}) {
         Card(
             backgroundColor = Grey200,
             shape = Shapes.large,
             elevation = 0.dp,
+            modifier = Modifier.clickable(onClick = onClick)
         ) {
             Row(
                 modifier = Modifier.size(245.dp, 100.dp),
@@ -51,12 +53,14 @@ object CategoryCard {
     }
 
     @Composable
-    fun Vertical(title: String? = null) {
+    fun Vertical(title: String? = null, onClick: () -> Unit = {}) {
         Card(
             backgroundColor = Grey200,
             shape = Shapes.large,
             elevation = 0.dp,
-            modifier = Modifier.width(170.dp),
+            modifier = Modifier
+                .width(170.dp)
+                .clickable(onClick = onClick),
         ) {
             Column(
                 modifier = Modifier

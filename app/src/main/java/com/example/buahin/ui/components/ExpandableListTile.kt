@@ -22,9 +22,9 @@ import com.example.buahin.ui.theme.Grey500
 import com.example.buahin.ui.theme.Typography
 
 @Composable
-fun ExpandableListTile(title: String, description: String) {
+fun ExpandableListTile(title: String, description: String, expand: Boolean = false) {
     val expanded = remember {
-        mutableStateOf(false)
+        mutableStateOf(expand)
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {

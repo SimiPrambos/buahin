@@ -39,4 +39,14 @@ class ProductRepository(private val firestore: FirebaseFirestore) {
             null
         }
     }
+
+    suspend fun findByCategory(category: String): List<Product> {
+        return try {
+            firestore.collection("categories/$category/products").get()
+                .await().documents.mapNotNull { it.toProduct() }
+        } catch (e: Exception) {
+            Log.println(Log.ERROR, "PRODUCT", e.toString())
+            emptyList()
+        }
+    }
 }

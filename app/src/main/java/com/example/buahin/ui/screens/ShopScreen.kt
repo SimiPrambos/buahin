@@ -71,7 +71,9 @@ fun ShopScreen(navController: NavController, vm: ShopViewModel = hiltViewModel()
             else
                 items(state.categories.size) { index ->
                     val item = state.categories[index]
-                    CategoryCard.Horizontal(item.name)
+                    CategoryCard.Horizontal(item.name) {
+                        navController.navigateToProducts(id = item.id, name = item.name)
+                    }
                 }
             item { }
         }
@@ -89,7 +91,9 @@ fun ShopScreen(navController: NavController, vm: ShopViewModel = hiltViewModel()
             else
                 items(state.bestSeller.size) { index ->
                     val item = state.bestSeller[index]
-                    ProductCard(item.name, item.summary, "Rp. ${item.price}", item.thumbnail)
+                    ProductCard(item.name, item.summary, "Rp. ${item.price}", item.thumbnail) {
+                        navController.navigateToProductDetail(item.id)
+                    }
                 }
             item { }
         }

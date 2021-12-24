@@ -11,6 +11,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.buahin.ui.components.CategoryCard
 import com.example.buahin.ui.components.SearchBox
 import com.example.buahin.ui.theme.BuahinTheme
@@ -24,7 +26,7 @@ import cz.levinzonr.saferoute.core.annotations.Route
 
 @Route("explore")
 @Composable
-fun ExploreScreen(vm: ExploreViewModel = hiltViewModel()) {
+fun ExploreScreen(navController: NavController, vm: ExploreViewModel = hiltViewModel()) {
     val state = vm.state.value
 
     LaunchedEffect(true) {
@@ -57,7 +59,12 @@ fun ExploreScreen(vm: ExploreViewModel = hiltViewModel()) {
                 }
             else
                 state.categories.forEach { item ->
-                    CategoryCard.Vertical(title = item.name)
+                    CategoryCard.Vertical(title = item.name) {
+                        navController.navigateToProducts(
+                            id = item.id,
+                            name = item.name,
+                        )
+                    }
                 }
         }
     }
@@ -68,7 +75,7 @@ fun ExploreScreen(vm: ExploreViewModel = hiltViewModel()) {
 fun ExploreScreenPreview() {
     BuahinTheme {
         Scaffold {
-            ExploreScreen()
+            ExploreScreen(rememberNavController())
         }
     }
 }

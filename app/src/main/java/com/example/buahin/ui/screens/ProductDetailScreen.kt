@@ -12,12 +12,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberImagePainter
 import com.example.buahin.R
 import com.example.buahin.ui.components.Counter
 import com.example.buahin.ui.components.ExpandableListTile
@@ -38,7 +42,10 @@ import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 
 @Route("productDetail", [RouteArg(name = "id", isOptional = false)])
 @Composable
-fun ProductDetailScreen(vm: ProductDetailViewModel = hiltViewModel()) {
+fun ProductDetailScreen(
+    navController: NavController,
+    vm: ProductDetailViewModel = hiltViewModel()
+) {
     val state = vm.state.value
 
     LaunchedEffect(true) {
@@ -81,21 +88,23 @@ fun ProductDetailScreen(vm: ProductDetailViewModel = hiltViewModel()) {
                                 .height(300.dp)
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(bottomStart = radius, bottomEnd = radius))
-                                .parallax(1f)
+                                .parallax(0.5f)
                                 .background(Grey200),
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.apple_large),
+                                painter = rememberImagePainter(state.value.thumbnail),
                                 contentDescription = null,
+                                contentScale = ContentScale.Crop,
                                 modifier = Modifier
-                                    .fillMaxSize()
-                                    .padding(45.dp)
+                                    .fillMaxSize(),
                             )
                         }
                         TopBar(
                             elevation = 0.dp,
                             backgroundColor = Color.Transparent,
-                            onBackPressed = {},
+                            onBackPressed = {
+                                navController.popBackStack()
+                            },
                             modifier = Modifier.pin(),
                             trailing = {
                                 IconButton(onClick = { /*TODO*/ }) {
@@ -164,7 +173,8 @@ fun ProductDetailScreen(vm: ProductDetailViewModel = hiltViewModel()) {
                             item {
                                 ExpandableListTile(
                                     "Product Details",
-                                    state.value.description
+                                    state.value.description,
+                                    expand = true,
                                 )
                             }
                         if (!state.value.nutrition.isNullOrEmpty())
@@ -204,6 +214,6 @@ fun ProductDetailScreen(vm: ProductDetailViewModel = hiltViewModel()) {
 @Composable
 fun ProductDetailScreenPreview() {
     BuahinTheme {
-        ProductDetailScreen()
+        ProductDetailScreen(rememberNavController())
     }
 }
