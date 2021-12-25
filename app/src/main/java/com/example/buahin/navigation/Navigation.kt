@@ -51,7 +51,7 @@ class Navigation(private val navController: NavHostController) {
 
     @ExperimentalMaterialApi
     @Composable
-    fun Build() {
+    fun Build(initialRoute: String = STARTUP_ROUTE) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
         val showBottomBar = BOTTOMS.any { it.route == currentRoute }
@@ -100,7 +100,7 @@ class Navigation(private val navController: NavHostController) {
                 NavHost(
                     navController = navController,
                     route = ROOT_ROUTE,
-                    startDestination = STARTUP_ROUTE
+                    startDestination = initialRoute,
                 ) {
                     StartUpNavigation(navController, STARTUP_ROUTE)
                     AuthNavigation(navController, AUTH_ROUTE)

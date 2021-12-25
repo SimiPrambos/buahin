@@ -21,7 +21,7 @@ import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Typography
 
 @Composable
-fun ProfileCard() {
+fun ProfileCard(name: String? = null, email: String? = null) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -39,7 +39,7 @@ fun ProfileCard() {
         Column() {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "Simi Prambos",
+                    text = name ?: "Simi Prambos",
                     style = Typography.h6,
                     fontWeight = FontWeight.Bold,
                     lineHeight = 18.sp,
@@ -53,7 +53,7 @@ fun ProfileCard() {
             }
             Spacer(modifier = Modifier.height(5.dp))
             Text(
-                text = "simi.prambos@gmail.com",
+                text = email ?: "simi.prambos@gmail.com",
                 style = Typography.subtitle1,
                 fontWeight = FontWeight.Normal,
             )

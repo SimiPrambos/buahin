@@ -23,7 +23,7 @@ fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) 
             FavouriteScreen()
         }
         composable(Routes.Account.route) {
-            AccountScreen()
+            AccountScreen(navController)
         }
         composable(Routes.Products.route) {
             ProductScreen(navController)

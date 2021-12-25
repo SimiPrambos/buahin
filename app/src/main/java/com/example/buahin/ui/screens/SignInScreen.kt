@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.buahin.R
@@ -28,17 +30,29 @@ import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Shapes
 import com.example.buahin.ui.theme.Typography
+import com.example.buahin.viewmodel.AuthEvent
+import com.example.buahin.viewmodel.AuthViewModel
 import cz.levinzonr.saferoute.core.annotations.Route
+import kotlinx.coroutines.launch
 
 @Route("signIn")
 @Composable
-fun SignInScreen(navController: NavController) {
+fun SignInScreen(navController: NavController, vm: AuthViewModel = hiltViewModel()) {
     val emailState = remember {
         mutableStateOf(TextFieldValue())
     }
     val passwordState = remember {
         mutableStateOf(TextFieldValue())
     }
+
+    val scope = rememberCoroutineScope()
+
+    fun onSignInPressed() {
+        scope.launch {
+            vm.onEvent(AuthEvent.SignIn(emailState.value.text, passwordState.value.text))
+        }
+    }
+
     Scaffold {
         Column(
             modifier = Modifier
@@ -117,10 +131,7 @@ fun SignInScreen(navController: NavController) {
                 }
             }
             Spacer(modifier = Modifier.height(30.dp))
-            RoundedButton.Filled(label = "Sign In", onClick = {
-                navController.popBackStack()
-                navController.navigateToShop()
-            })
+            RoundedButton.Filled(label = "Sign In", onClick = ::onSignInPressed)
             Spacer(modifier = Modifier.height(25.dp))
             Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()) {
                 Text(text = "Don’t have an account? ")
