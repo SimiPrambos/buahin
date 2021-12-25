@@ -60,7 +60,11 @@ fun ShopScreen(navController: NavController, vm: ShopViewModel = hiltViewModel()
         Spacer(modifier = Modifier.height(10.dp))
         Section(
             "Categories",
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp)
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp),
+            onClick = {
+                navController.popBackStack()
+                navController.navigateToExplore()
+            }
         )
         LazyRow(horizontalArrangement = Arrangement.spacedBy(15.dp)) {
             item { }

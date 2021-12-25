@@ -1,5 +1,6 @@
 package com.example.buahin.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,11 +15,18 @@ import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Typography
 
 @Composable
-fun Section(title: String, showMore: Boolean = true, modifier: Modifier = Modifier) {
+fun Section(
+    title: String,
+    showMore: Boolean = true,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit = {},
+) {
     Row(
-        modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick),
     ) {
         Text(
             text = title,
