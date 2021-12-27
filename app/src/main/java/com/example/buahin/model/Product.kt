@@ -11,9 +11,10 @@ data class Product(
     val description: String? = null,
     val nutrition: String? = null,
     val howToSave: String? = null,
+    val ref: String,
 ) {
     companion object {
-        fun DocumentSnapshot.toProduct() : Product {
+        fun DocumentSnapshot.toProduct(): Product {
             return Product(
                 id = id,
                 name = getString("name")!!,
@@ -23,6 +24,7 @@ data class Product(
                 description = getString("description"),
                 nutrition = getString("nutrition"),
                 howToSave = getString("how_to_save"),
+                ref = reference.path,
             )
         }
     }

@@ -1,6 +1,7 @@
 package com.example.buahin.ui.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -16,36 +17,45 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
 import com.example.buahin.R
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Grey500
 import com.example.buahin.ui.theme.Typography
+import com.google.accompanist.placeholder.material.placeholder
 
 @Composable
-fun CartCard() {
-    val (qty, setQty) = remember { mutableStateOf(1) }
-
-    fun decreaseQty() {
-        setQty(qty - 1)
-    }
-
-    fun increaseQty() {
-        setQty(qty + 1)
-    }
-
+fun CartCard(
+    title: String? = null,
+    subtitle: String? = null,
+    subtotal: Float? = null,
+    qty: Int? = null,
+    thumbnail: String? = null,
+    onIncrease: () -> Unit = {},
+    onDecrease: () -> Unit = {},
+    onRemove: () -> Unit = {},
+) {
     Card(modifier = Modifier.fillMaxWidth(), elevation = 0.dp) {
         Row(
             modifier = Modifier.padding(vertical = 16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.apple),
-                contentDescription = "",
-                contentScale = ContentScale.Fit,
-                alignment = Alignment.Center,
-                modifier = Modifier.size(80.dp)
-            )
+            if (thumbnail == null) {
+                Box(
+                    modifier = Modifier
+                        .size(80.dp)
+                        .placeholder(true)
+                )
+            } else {
+                Image(
+                    painter = rememberImagePainter(thumbnail),
+                    contentDescription = "",
+                    contentScale = ContentScale.Fit,
+                    alignment = Alignment.Center,
+                    modifier = Modifier.size(80.dp)
+                )
+            }
             Spacer(modifier = Modifier.width(16.dp))
             Column() {
                 Row() {
@@ -55,25 +65,29 @@ fun CartCard() {
                             modifier = Modifier.fillMaxWidth()
                         ) {
                             Text(
-                                text = "Sprite Can",
+                                text = title ?: "Product title placeholder",
                                 style = Typography.subtitle1,
                                 fontWeight = FontWeight.Bold,
                                 color = Dark,
+                                modifier = Modifier.placeholder(title.isNullOrEmpty())
                             )
                             Icon(
                                 painter = painterResource(id = R.drawable.ic_close),
                                 contentDescription = "",
                                 tint = Grey500,
-                                modifier = Modifier.size(14.dp),
+                                modifier = Modifier
+                                    .size(14.dp)
+                                    .clickable(onClick = onRemove),
                             )
 
                         }
                         Spacer(modifier = Modifier.height(5.dp))
                         Text(
-                            text = "325ml, Price",
+                            text = subtitle ?: "325ml, Price",
                             style = Typography.subtitle2,
                             fontWeight = FontWeight.Medium,
                             color = Grey500,
+                            modifier = Modifier.placeholder(subtitle.isNullOrEmpty())
                         )
                     }
 
@@ -84,17 +98,19 @@ fun CartCard() {
                     horizontalArrangement = Arrangement.SpaceBetween,
                     modifier = Modifier.fillMaxWidth(),
                 ) {
-                    Counter(
-                        value = qty,
-                        onDecreased = { decreaseQty() },
-                        onIncreased = { increaseQty() },
-                    )
-                    Text(
-                        text = "Rp. 10.500",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        color = Dark,
-                    )
+                    if (qty != null)
+                        Counter(
+                            value = qty,
+                            onDecreased = onDecrease,
+                            onIncreased = onIncrease,
+                        )
+                    if (subtotal != null)
+                        Text(
+                            text = "Rp. $subtotal",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = Dark,
+                        )
                 }
             }
         }

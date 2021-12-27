@@ -1,6 +1,7 @@
 package com.example.buahin.di
 
 import com.example.buahin.repository.AuthRepository
+import com.example.buahin.repository.CartRepository
 import com.example.buahin.repository.CategoryRepository
 import com.example.buahin.repository.ProductRepository
 import com.google.firebase.auth.FirebaseAuth
@@ -16,31 +17,37 @@ import javax.inject.Singleton
 object AppModule {
     @Provides
     @Singleton
-    fun provideFirestore() : FirebaseFirestore {
+    fun provideFirestore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
 
     @Provides
     @Singleton
-    fun provideFireAuth() : FirebaseAuth {
+    fun provideFireAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
     }
 
     @Provides
     @Singleton
-    fun provideCategoryRepository(firestore: FirebaseFirestore) : CategoryRepository {
+    fun provideCategoryRepository(firestore: FirebaseFirestore): CategoryRepository {
         return CategoryRepository(firestore)
     }
 
     @Provides
     @Singleton
-    fun provideProductRepository(firestore: FirebaseFirestore) : ProductRepository {
+    fun provideProductRepository(firestore: FirebaseFirestore): ProductRepository {
         return ProductRepository(firestore)
     }
 
     @Provides
     @Singleton
-    fun providerAuthRepository(fireauth: FirebaseAuth) : AuthRepository {
-        return  AuthRepository(fireauth)
+    fun providerAuthRepository(fireauth: FirebaseAuth): AuthRepository {
+        return AuthRepository(fireauth)
+    }
+
+    @Provides
+    @Singleton
+    fun providerCartRepository(firestore: FirebaseFirestore): CartRepository {
+        return CartRepository(firestore)
     }
 }

@@ -6,8 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,19 +22,15 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberImagePainter
 import com.example.buahin.R
-import com.example.buahin.ui.components.Counter
-import com.example.buahin.ui.components.ExpandableListTile
-import com.example.buahin.ui.components.RoundedButton
-import com.example.buahin.ui.components.TopBar
+import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Grey200
 import com.example.buahin.ui.theme.Grey500
 import com.example.buahin.ui.theme.Typography
-import com.example.buahin.viewmodel.ProductDetailEvent
-import com.example.buahin.viewmodel.ProductDetailState
-import com.example.buahin.viewmodel.ProductDetailViewModel
+import com.example.buahin.viewmodel.*
 import cz.levinzonr.saferoute.core.annotations.Route
 import cz.levinzonr.saferoute.core.annotations.RouteArg
+import kotlinx.coroutines.launch
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -44,7 +39,7 @@ import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 @Composable
 fun ProductDetailScreen(
     navController: NavController,
-    vm: ProductDetailViewModel = hiltViewModel()
+    vm: ProductDetailViewModel = hiltViewModel(),
 ) {
     val state = vm.state.value
 
@@ -66,12 +61,27 @@ fun ProductDetailScreen(
         }
         is ProductDetailState.Success -> {
             val scaffoldState = rememberCollapsingToolbarScaffoldState()
+            val qtyState = remember { mutableStateOf(1) }
+            val cart: CartViewModel = hiltViewModel()
+            val scope = rememberCoroutineScope()
+
+            fun onAddToCardPressed() {
+                val qty = qtyState.value
+                qtyState.value = 1
+                scope.launch {
+                    cart.onEvent(CartEvent.CartAdded(state.value, qty))
+                }
+            }
+
             Scaffold(
                 floatingActionButton = {
-                    RoundedButton.Filled(
-                        "Add to Cart",
-                        onClick = {},
-                        modifier = Modifier.padding(horizontal = 20.dp),
+                    AddToCartWidget(
+                        cart.state.value.items.size,
+                        onAddToCartPressed = ::onAddToCardPressed,
+                        onShowCartPressed = {
+                            navController.popBackStack()
+                            navController.navigateToCart()
+                        },
                     )
                 },
                 floatingActionButtonPosition = FabPosition.Center,
@@ -161,7 +171,11 @@ fun ProductDetailScreen(
                                     .fillMaxWidth()
                                     .padding(vertical = 16.dp),
                             ) {
-                                Counter(onDecreased = {}, onIncreased = {})
+                                Counter(
+                                    value = qtyState.value,
+                                    onDecreased = { qtyState.value = qtyState.value - 1 },
+                                    onIncreased = { qtyState.value = qtyState.value + 1 },
+                                )
                                 Text(
                                     text = "Rp. ${state.value.price}",
                                     style = Typography.h6,
@@ -184,12 +198,13 @@ fun ProductDetailScreen(
                                     state.value.nutrition
                                 )
                             }
-                        item {
-                            ExpandableListTile(
-                                "Review",
-                                "this is review"
-                            )
-                        }
+                        if (!state.value.howToSave.isNullOrEmpty())
+                            item {
+                                ExpandableListTile(
+                                    "How to Save",
+                                    state.value.howToSave
+                                )
+                            }
                     }
                 }
             }
