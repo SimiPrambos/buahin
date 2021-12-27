@@ -18,6 +18,15 @@ data class Product(
         return Converter.idr(price)
     }
 
+    fun toMap() : HashMap<String, Any> {
+        return hashMapOf(
+            "name" to name,
+            "summary" to summary,
+            "price" to price,
+            "thumbnail" to thumbnail,
+        )
+    }
+
     companion object {
         fun DocumentSnapshot.toProduct(): Product {
             return Product(

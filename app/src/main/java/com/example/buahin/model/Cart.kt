@@ -16,6 +16,13 @@ data class Cart(
         return Converter.idr(subtotal())
     }
 
+    fun toMap(): HashMap<String, Any> {
+        return hashMapOf(
+            "qty" to qty,
+            "product" to product.toMap(),
+        )
+    }
+
     companion object {
         fun DocumentSnapshot.toCart(product: Product): Cart {
             return Cart(

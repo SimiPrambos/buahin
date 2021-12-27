@@ -21,7 +21,7 @@ import com.example.buahin.ui.components.RoundedButton
 import com.example.buahin.ui.theme.*
 
 @Composable
-fun CheckoutScreen(onCancelPressed: () -> Unit) {
+fun CheckoutScreen(total: String, onCancelPressed: () -> Unit, onConfirmPressed: () -> Unit) {
     Card() {
         Column {
             Row(
@@ -81,7 +81,7 @@ fun CheckoutScreen(onCancelPressed: () -> Unit) {
                 titleStyle = Typography.button.copy(color = Grey500),
                 preTrailing = {
                     Text(
-                        text = "Rp. 320.000",
+                        text = total,
                         style = Typography.subtitle1.copy(
                             fontWeight = FontWeight.SemiBold,
                             color = Dark,
@@ -101,7 +101,7 @@ fun CheckoutScreen(onCancelPressed: () -> Unit) {
             }
             RoundedButton.Filled(
                 "Place Order",
-                onClick = {},
+                onClick = onConfirmPressed,
                 modifier = Modifier.padding(16.dp),
             )
         }
@@ -112,6 +112,6 @@ fun CheckoutScreen(onCancelPressed: () -> Unit) {
 @Composable
 fun CheckoutScreenPreview() {
     BuahinTheme {
-        CheckoutScreen(onCancelPressed = {})
+        CheckoutScreen("Rp 100", onCancelPressed = {}, onConfirmPressed = {})
     }
 }

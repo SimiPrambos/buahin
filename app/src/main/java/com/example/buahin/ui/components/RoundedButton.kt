@@ -2,6 +2,8 @@ package com.example.buahin.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Badge
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
@@ -17,7 +19,12 @@ import com.example.buahin.ui.theme.Shapes
 
 object RoundedButton {
     @Composable
-    fun Filled(label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    fun Filled(
+        label: String,
+        badge: String? = null,
+        onClick: () -> Unit,
+        modifier: Modifier = Modifier
+    ) {
         Button(
             onClick = onClick,
             modifier = modifier.fillMaxWidth(),
@@ -30,11 +37,16 @@ object RoundedButton {
             elevation = ButtonDefaults.elevation(0.dp),
         ) {
             Text(text = label)
+            if (!badge.isNullOrEmpty()) {
+                Badge(
+                    modifier = Modifier.padding(start = 16.dp)
+                ) { Text(text = badge) }
+            }
         }
     }
 
     @Composable
-    fun Text(label: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    fun Text(label: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
         Button(
             onClick = onClick,
             modifier = modifier.fillMaxWidth(),
@@ -54,6 +66,6 @@ object RoundedButton {
 @Composable
 fun RoundedButtonFilledPreview() {
     BuahinTheme {
-        RoundedButton.Filled(label = "Filled Button", onClick = {})
+        RoundedButton.Filled(label = "Filled Button", badge = "Rp 120.000", onClick = {})
     }
 }

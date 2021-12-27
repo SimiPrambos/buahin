@@ -7,9 +7,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buahin.ui.screens.*
 
+val MAIN_START_DESTINATION = Routes.Shop.route
+
 @ExperimentalMaterialApi
 fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) {
-    navigation(route = route, startDestination = Routes.Shop.route) {
+    navigation(route = route, startDestination = MAIN_START_DESTINATION) {
         composable(Routes.Shop.route) {
             ShopScreen(navController)
         }
@@ -17,7 +19,7 @@ fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) 
             ExploreScreen(navController)
         }
         composable(Routes.Cart.route) {
-            CartScreen()
+            CartScreen(navController)
         }
         composable(Routes.Favourite.route) {
             FavouriteScreen()
@@ -31,5 +33,12 @@ fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) 
         composable(Routes.ProductDetail.route) {
             ProductDetailScreen(navController)
         }
+        composable(Routes.Order.route) {
+            OrderScreen(navController)
+        }
     }
+}
+
+fun NavController.popToMain() {
+    popBackStack(MAIN_START_DESTINATION, inclusive = false)
 }

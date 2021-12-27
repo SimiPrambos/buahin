@@ -1,15 +1,13 @@
 package com.example.buahin.di
 
-import com.example.buahin.repository.AuthRepository
-import com.example.buahin.repository.CartRepository
-import com.example.buahin.repository.CategoryRepository
-import com.example.buahin.repository.ProductRepository
+import com.example.buahin.repository.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -25,6 +23,13 @@ object AppModule {
     @Singleton
     fun provideFireAuth(): FirebaseAuth {
         return FirebaseAuth.getInstance()
+    }
+
+    @Provides
+    @Singleton
+    @Named("UUID")
+    fun provideUUID(fireauth: FirebaseAuth): String {
+        return fireauth.currentUser?.uid ?: ""
     }
 
     @Provides
@@ -47,7 +52,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providerCartRepository(firestore: FirebaseFirestore): CartRepository {
-        return CartRepository(firestore)
+    fun providerCartRepository(
+        @Named("UUID") uuid: String,
+        firestore: FirebaseFirestore
+    ): CartRepository {
+        return CartRepository(uuid, firestore)
+    }
+
+    @Provides
+    @Singleton
+    fun provideOrderRepository(
+        @Named("UUID") uuid: String,
+        firestore: FirebaseFirestore,
+        cartRepository: CartRepository,
+    ): OrderRepository {
+        return OrderRepository(uuid, firestore, cartRepository)
     }
 }

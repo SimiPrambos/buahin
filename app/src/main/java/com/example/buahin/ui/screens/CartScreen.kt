@@ -10,6 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.buahin.model.Product
 import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
@@ -21,7 +23,7 @@ import kotlinx.coroutines.launch
 @Route("cart")
 @ExperimentalMaterialApi
 @Composable
-fun CartScreen(vm: CartViewModel = hiltViewModel()) {
+fun CartScreen(navController: NavController, vm: CartViewModel = hiltViewModel()) {
     val bottomSheet = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
     val scope = rememberCoroutineScope()
     val state = vm.state.value
@@ -45,16 +47,28 @@ fun CartScreen(vm: CartViewModel = hiltViewModel()) {
     ModalBottomSheetLayout(
         sheetState = bottomSheet,
         sheetShape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp),
-        sheetContent = { CheckoutScreen(onCancelPressed = { hideCheckoutDialog() }) },
+        sheetContent = {
+            CheckoutScreen(
+                state.totalIdr,
+                onCancelPressed = { hideCheckoutDialog() },
+                onConfirmPressed = {
+                    hideCheckoutDialog()
+                    navController.popBackStack()
+                    navController.navigateToOrder()
+                }
+            )
+        },
     ) {
         Scaffold(
             topBar = { TopBar(title = "My Cart") },
             floatingActionButton = {
-                RoundedButton.Filled(
-                    "Go to Checkout",
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    onClick = { showCheckoutDialog() },
-                )
+                if (state.items.isNotEmpty())
+                    RoundedButton.Filled(
+                        "Go to Checkout",
+                        state.totalIdr,
+                        modifier = Modifier.padding(horizontal = 16.dp),
+                        onClick = { showCheckoutDialog() },
+                    )
             },
             floatingActionButtonPosition = FabPosition.Center,
         ) {
@@ -104,6 +118,6 @@ fun AddToCartWidget(
 @Composable
 fun CartScreenPreview() {
     BuahinTheme {
-        CartScreen()
+        CartScreen(rememberNavController())
     }
 }

@@ -9,11 +9,22 @@ import com.example.buahin.model.Product.Companion.toProduct
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
 
-class CartRepository(private val firestore: FirebaseFirestore) {
+class CartRepository(private val uuid: String, private val firestore: FirebaseFirestore) {
     private var listener: ListenerRegistration? = null
 
-    private fun ref(uuid: String): CollectionReference {
-        return firestore.collection("users/$uuid/carts")
+    private val ref: CollectionReference
+        get() = firestore.collection("users/$uuid/carts")
+
+    suspend fun findAll(): List<Cart> {
+        return try {
+            toCarts(ref.get().await().documents)
+        } catch (e: Exception) {
+            emptyList()
+        }
+    }
+
+    suspend fun remove(id: String) {
+        ref.document(id).delete().await()
     }
 
     suspend fun toCarts(docs: List<DocumentSnapshot>): List<Cart> {
@@ -23,8 +34,8 @@ class CartRepository(private val firestore: FirebaseFirestore) {
         }
     }
 
-    fun listen(uuid: String, callback: (List<DocumentSnapshot>) -> Unit) {
-        listener = ref(uuid).addSnapshotListener { data, e ->
+    fun listen(callback: (List<DocumentSnapshot>) -> Unit) {
+        listener = ref.addSnapshotListener { data, e ->
             if (e != null) return@addSnapshotListener
             if (data == null) return@addSnapshotListener
             callback(data.documents)
@@ -35,27 +46,27 @@ class CartRepository(private val firestore: FirebaseFirestore) {
         listener?.remove()
     }
 
-    suspend fun changeQyt(uuid: String, id: String, qty: Int) {
-        ref(uuid).document(id).update("qty", qty).await()
+    suspend fun changeQyt(id: String, qty: Int) {
+        ref.document(id).update("qty", qty).await()
     }
 
-    suspend fun delete(uuid: String, id: String) {
-        ref(uuid).document(id).delete().await()
+    suspend fun delete(id: String) {
+        ref.document(id).delete().await()
     }
 
-    suspend fun createOrUpdate(uuid: String, product: Product, qty: Int) {
+    suspend fun createOrUpdate(product: Product, qty: Int) {
         try {
             val productRef = firestore.document(product.ref)
-            val carts = ref(uuid).whereEqualTo("product", productRef).get().await()
+            val carts = ref.whereEqualTo("product", productRef).get().await()
             if (carts.isEmpty) {
                 val data = hashMapOf(
                     "product" to productRef,
                     "qty" to qty
                 )
-                ref(uuid).add(data).await()
+                ref.add(data).await()
             } else {
                 val cart = carts.documents.first()
-                ref(uuid).document(cart.id).update("qty", cart.toQty() + qty).await()
+                ref.document(cart.id).update("qty", cart.toQty() + qty).await()
             }
         } catch (e: Exception) {
             Log.e("ADD CART", e.toString())

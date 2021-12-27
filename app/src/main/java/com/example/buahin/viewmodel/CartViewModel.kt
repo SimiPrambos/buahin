@@ -1,31 +1,24 @@
 package com.example.buahin.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.buahin.model.Cart
 import com.example.buahin.model.Product
-import com.example.buahin.repository.AuthRepository
 import com.example.buahin.repository.CartRepository
+import com.example.buahin.util.Converter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CartViewModel @Inject constructor(
-    authRepository: AuthRepository,
-    private val cartRepository: CartRepository,
-) : ViewModel() {
-    private val uuid = authRepository.currentUser()!!.uid
+class CartViewModel @Inject constructor(private val cartRepository: CartRepository) : ViewModel() {
     private val _state = mutableStateOf(CartState())
     val state: State<CartState> = _state
 
     init {
-        cartRepository.listen(uuid) {
+        cartRepository.listen {
             viewModelScope.launch {
                 _state.value = _state.value.copy(
                     items = cartRepository.toCarts(it)
@@ -47,7 +40,7 @@ class CartViewModel @Inject constructor(
                 items[event.index] = cart
                 _state.value = _state.value.copy(items = items)
                 viewModelScope.launch {
-                    cartRepository.changeQyt(uuid, cart.id, event.qty)
+                    cartRepository.changeQyt(cart.id, event.qty)
                 }
             }
             is CartEvent.CartRemoved -> {
@@ -55,7 +48,7 @@ class CartViewModel @Inject constructor(
                 val cart = items.removeAt(event.index)
                 _state.value = _state.value.copy(items = items)
                 viewModelScope.launch {
-                    cartRepository.delete(uuid, cart.id)
+                    cartRepository.delete(cart.id)
                 }
             }
             is CartEvent.CartAdded -> {
@@ -68,7 +61,7 @@ class CartViewModel @Inject constructor(
                 }
                 _state.value = _state.value.copy(items = items)
                 viewModelScope.launch {
-                    cartRepository.createOrUpdate(uuid, event.product, event.qty)
+                    cartRepository.createOrUpdate(event.product, event.qty)
                 }
             }
         }
@@ -77,7 +70,12 @@ class CartViewModel @Inject constructor(
 
 data class CartState(
     val items: List<Cart> = emptyList(),
-)
+) {
+    val total: Float
+        get() = items.fold(0f) { value, cart -> value + cart.subtotal() }
+    val totalIdr: String
+        get() = Converter.idr(total)
+}
 
 sealed class CartEvent {
     data class QtyChanged(val index: Int, val qty: Int) : CartEvent()
