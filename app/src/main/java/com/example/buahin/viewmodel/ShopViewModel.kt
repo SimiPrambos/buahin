@@ -9,7 +9,6 @@ import com.example.buahin.model.Product
 import com.example.buahin.repository.CategoryRepository
 import com.example.buahin.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,7 +25,6 @@ class ShopViewModel @Inject constructor(
         when (event) {
             is ShopEvent.LoadCategory -> {
                 viewModelScope.launch {
-                    delay(1000)
                     val categories = categoryRepository.findSummary()
                     _state.value = _state.value.copy(
                         categories = categories
@@ -35,14 +33,12 @@ class ShopViewModel @Inject constructor(
             }
             is ShopEvent.LoadOffer -> {
                 viewModelScope.launch {
-                    delay(1000)
                     val offers = productRepository.findOffers()
                     _state.value = _state.value.copy(offers = offers)
                 }
             }
             is ShopEvent.LoadBestSeller -> {
                 viewModelScope.launch {
-                    delay(1000)
                     val bestSeller = productRepository.findBestSeller()
                     _state.value = _state.value.copy(bestSeller = bestSeller)
                 }

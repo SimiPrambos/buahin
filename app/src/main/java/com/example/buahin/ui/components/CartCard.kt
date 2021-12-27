@@ -29,7 +29,7 @@ import com.google.accompanist.placeholder.material.placeholder
 fun CartCard(
     title: String? = null,
     subtitle: String? = null,
-    subtotal: Float? = null,
+    subtotal: String? = null,
     qty: Int? = null,
     thumbnail: String? = null,
     onIncrease: () -> Unit = {},
@@ -104,13 +104,13 @@ fun CartCard(
                             onDecreased = onDecrease,
                             onIncreased = onIncrease,
                         )
-                    if (subtotal != null)
-                        Text(
-                            text = "Rp. $subtotal",
-                            fontSize = 18.sp,
-                            fontWeight = FontWeight.SemiBold,
-                            color = Dark,
-                        )
+                    Text(
+                        text = subtotal ?: "Rp. xxx.xxx",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = Dark,
+                        modifier = Modifier.placeholder(subtotal.isNullOrEmpty())
+                    )
                 }
             }
         }

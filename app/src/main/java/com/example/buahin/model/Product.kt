@@ -1,5 +1,6 @@
 package com.example.buahin.model
 
+import com.example.buahin.util.Converter
 import com.google.firebase.firestore.DocumentSnapshot
 
 data class Product(
@@ -13,6 +14,10 @@ data class Product(
     val howToSave: String? = null,
     val ref: String,
 ) {
+    fun idr() : String {
+        return Converter.idr(price)
+    }
+
     companion object {
         fun DocumentSnapshot.toProduct(): Product {
             return Product(

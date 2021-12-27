@@ -1,5 +1,6 @@
 package com.example.buahin.model
 
+import com.example.buahin.util.Converter
 import com.google.firebase.firestore.DocumentSnapshot
 
 data class Cart(
@@ -11,6 +12,10 @@ data class Cart(
         return product.price * qty
     }
 
+    fun subtotalIdr(): String {
+        return Converter.idr(subtotal())
+    }
+
     companion object {
         fun DocumentSnapshot.toCart(product: Product): Cart {
             return Cart(
@@ -20,7 +25,7 @@ data class Cart(
             )
         }
 
-        fun DocumentSnapshot.toQty() : Int {
+        fun DocumentSnapshot.toQty(): Int {
             return getLong("qty")!!.toInt()
         }
     }

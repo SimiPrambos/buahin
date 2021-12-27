@@ -82,7 +82,7 @@ fun ProductScreen(navController: NavController, vm: ProductsViewModel = hiltView
                         ProductCard(
                             title = item.name,
                             subtitle = item.summary,
-                            price = "Rp. ${item.price}",
+                            price = item.idr(),
                             thumbnail = item.thumbnail,
                         ) {
                             navController.navigateToProductDetail(item.id)

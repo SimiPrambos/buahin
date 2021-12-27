@@ -79,7 +79,7 @@ fun ProductDetailScreen(
                         cart.state.value.items.size,
                         onAddToCartPressed = ::onAddToCardPressed,
                         onShowCartPressed = {
-                            navController.popBackStack()
+//                            navController.popBackStack()
                             navController.navigateToCart()
                         },
                     )
@@ -177,7 +177,7 @@ fun ProductDetailScreen(
                                     onIncreased = { qtyState.value = qtyState.value + 1 },
                                 )
                                 Text(
-                                    text = "Rp. ${state.value.price}",
+                                    text = state.value.idr(),
                                     style = Typography.h6,
                                     fontWeight = FontWeight.Bold,
                                 )
