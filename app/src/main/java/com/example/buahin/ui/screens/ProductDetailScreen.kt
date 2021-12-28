@@ -98,7 +98,7 @@ fun ProductDetailScreen(
                                 .height(300.dp)
                                 .fillMaxWidth()
                                 .clip(RoundedCornerShape(bottomStart = radius, bottomEnd = radius))
-                                .parallax(0.5f)
+                                .parallax(1f)
                                 .background(Grey200),
                         ) {
                             Image(
