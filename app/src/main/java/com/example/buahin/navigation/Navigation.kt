@@ -40,7 +40,7 @@ class Navigation(private val navController: NavHostController) {
             Menu("Account", R.drawable.ic_account, Routes.Account.route),
         )
         val SETTINGS = listOf(
-            Menu("Orders", R.drawable.ic_orders, ""),
+            Menu("Orders", R.drawable.ic_orders, Routes.Orders.route),
             Menu("Delivery Address", R.drawable.ic_address, ""),
             Menu("Payment Method", R.drawable.ic_payment, ""),
             Menu("Promo Card", R.drawable.ic_promo, ""),

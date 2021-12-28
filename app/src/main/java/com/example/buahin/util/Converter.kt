@@ -1,6 +1,7 @@
 package com.example.buahin.util
 
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class Converter {
@@ -11,6 +12,11 @@ class Converter {
                 maximumFractionDigits = 0
             }
             return numberFormat.format(number).toString()
+        }
+
+        fun humanize(date: Date) : String {
+            val formatter = SimpleDateFormat("dd-MM-yyyy HH:mm")
+            return formatter.format(date)
         }
     }
 }

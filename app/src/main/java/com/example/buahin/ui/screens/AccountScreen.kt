@@ -54,7 +54,11 @@ fun AccountScreen(navController: NavController, vm: AuthViewModel = hiltViewMode
             ListItem(
                 icon = setting.icon,
                 title = setting.label,
-                onClick = {}
+                onClick = {
+                    if (setting.route.isNotEmpty()) {
+                        navController.navigate(setting.route)
+                    }
+                }
             )
         }
         Spacer(modifier = Modifier.height(30.dp))

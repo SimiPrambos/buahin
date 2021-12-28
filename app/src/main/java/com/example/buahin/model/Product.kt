@@ -41,5 +41,16 @@ data class Product(
                 ref = reference.path,
             )
         }
+
+        fun DocumentSnapshot.toProductFromMap(): Product {
+            return Product(
+                id = id,
+                name = getString("product.name")!!,
+                summary = getString("product.summary")!!,
+                price = getDouble("product.price")!!.toFloat(),
+                thumbnail = getString("product.thumbnail")!!,
+                ref = reference.path,
+            )
+        }
     }
 }

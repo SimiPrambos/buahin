@@ -1,5 +1,6 @@
 package com.example.buahin.model
 
+import com.example.buahin.util.Converter
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
 import java.util.*
@@ -11,6 +12,7 @@ data class Order(
     val status: String,
     val total: Float,
     val address: Address,
+    var details: List<Cart> = emptyList(),
 ) {
     companion object {
         fun DocumentSnapshot.toOrder(): Order {
@@ -27,12 +29,12 @@ data class Order(
                     district = getString("address.district")!!,
                     code = getString("address.code")!!,
                     detail = getString("address.detail")!!,
-                )
+                ),
             )
         }
     }
 
-    fun toMap() : HashMap<String, Any> {
+    fun toMap(): HashMap<String, Any> {
         return hashMapOf(
             "created_at" to Timestamp(createdAt),
             "status" to status,
@@ -40,4 +42,10 @@ data class Order(
             "address" to address.toMap(),
         )
     }
+
+    val totalIdr: String
+        get() = Converter.idr(total)
+
+    val createdAtHumanize: String
+        get() = Converter.humanize(createdAt)
 }

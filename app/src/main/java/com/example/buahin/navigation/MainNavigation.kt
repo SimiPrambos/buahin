@@ -36,6 +36,9 @@ fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) 
         composable(Routes.Order.route) {
             OrderScreen(navController)
         }
+        composable(Routes.Orders.route) {
+            OrdersScreen(navController)
+        }
     }
 }
 
