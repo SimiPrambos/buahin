@@ -79,6 +79,7 @@ fun OrderScreen(navController: NavController, vm: OrderViewModel = hiltViewModel
                     navController.popBackStack()
                     navController.navigateToOrders()
                 }
+                Spacer(modifier = Modifier.height(10.dp))
                 RoundedButton.Text("Back to Shop") {
                     navController.popToMain()
                 }

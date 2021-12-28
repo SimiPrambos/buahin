@@ -18,6 +18,7 @@ import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Grey200
 import com.example.buahin.ui.theme.Shapes
 import com.example.buahin.ui.theme.Typography
+import com.example.buahin.util.noRippleClickable
 import com.google.accompanist.placeholder.material.placeholder
 
 object CategoryCard {
@@ -27,7 +28,7 @@ object CategoryCard {
             backgroundColor = Grey200,
             shape = Shapes.large,
             elevation = 0.dp,
-            modifier = Modifier.clickable(onClick = onClick)
+            modifier = Modifier.noRippleClickable(onClick = onClick)
         ) {
             Row(
                 modifier = Modifier.size(245.dp, 100.dp),

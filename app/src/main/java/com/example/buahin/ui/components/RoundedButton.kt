@@ -3,10 +3,7 @@ package com.example.buahin.ui.components
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Badge
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,13 +44,14 @@ object RoundedButton {
 
     @Composable
     fun Text(label: String, modifier: Modifier = Modifier, onClick: () -> Unit) {
-        Button(
+        OutlinedButton(
             onClick = onClick,
             modifier = modifier.fillMaxWidth(),
             shape = Shapes.large,
             contentPadding = PaddingValues(vertical = 20.dp),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = Color.Transparent,
+                backgroundColor = Color.White,
+                contentColor = Color.White,
             ),
             elevation = ButtonDefaults.elevation(0.dp),
         ) {
@@ -67,5 +65,15 @@ object RoundedButton {
 fun RoundedButtonFilledPreview() {
     BuahinTheme {
         RoundedButton.Filled(label = "Filled Button", badge = "Rp 120.000", onClick = {})
+    }
+}
+
+@Preview
+@Composable
+fun RoundedButtonTextPreview() {
+    BuahinTheme {
+        Surface {
+            RoundedButton.Text(label = "Filled Button", onClick = {})
+        }
     }
 }

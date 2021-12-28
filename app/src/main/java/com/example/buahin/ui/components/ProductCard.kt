@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.buahin.R
 import com.example.buahin.ui.theme.*
+import com.example.buahin.util.noRippleClickable
 import com.google.accompanist.placeholder.material.placeholder
 
 @Composable
@@ -37,7 +38,7 @@ fun ProductCard(
         shape = Shapes.large,
         modifier = Modifier
             .size(170.dp, 225.dp)
-            .clickable(onClick = onClick),
+            .noRippleClickable(onClick = onClick),
         border = BorderStroke(0.5.dp, Grey300),
         elevation = 0.dp,
     ) {

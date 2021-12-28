@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Typography
+import com.example.buahin.util.noRippleClickable
 
 @Composable
 fun Section(
@@ -26,7 +27,7 @@ fun Section(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .noRippleClickable(onClick = onClick),
     ) {
         Text(
             text = title,

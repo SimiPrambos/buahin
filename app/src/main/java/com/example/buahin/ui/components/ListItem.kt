@@ -18,6 +18,7 @@ import com.example.buahin.R
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Typography
+import com.example.buahin.util.noRippleClickable
 
 @Composable
 fun ListItem(
@@ -32,7 +33,7 @@ fun ListItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(20.dp)
-            .clickable(onClick = onClick),
+            .noRippleClickable(onClick = onClick),
     ) {
         if (icon != null) {
             Icon(painter = painterResource(id = icon), contentDescription = "")

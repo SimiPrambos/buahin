@@ -20,6 +20,7 @@ import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Grey500
 import com.example.buahin.ui.theme.Typography
+import com.example.buahin.util.noRippleClickable
 
 @Composable
 fun ExpandableListTile(title: String, description: String, expand: Boolean = false) {
@@ -34,10 +35,7 @@ fun ExpandableListTile(title: String, description: String, expand: Boolean = fal
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 16.dp)
-                .clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {
+                .noRippleClickable {
                     expanded.value = !expanded.value
                 },
         ) {
