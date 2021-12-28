@@ -75,7 +75,10 @@ fun OrderScreen(navController: NavController, vm: OrderViewModel = hiltViewModel
                 )
             }
             if (!status.actionLabel.isNullOrEmpty()) {
-                RoundedButton.Filled("Track Order", onClick = {})
+                RoundedButton.Filled(status.actionLabel) {
+                    navController.popBackStack()
+                    navController.navigateToOrders()
+                }
                 RoundedButton.Text("Back to Shop") {
                     navController.popToMain()
                 }

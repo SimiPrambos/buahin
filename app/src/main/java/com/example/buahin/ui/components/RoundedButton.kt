@@ -22,8 +22,8 @@ object RoundedButton {
     fun Filled(
         label: String,
         badge: String? = null,
+        modifier: Modifier = Modifier,
         onClick: () -> Unit,
-        modifier: Modifier = Modifier
     ) {
         Button(
             onClick = onClick,

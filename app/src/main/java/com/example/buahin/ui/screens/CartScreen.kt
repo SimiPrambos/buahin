@@ -6,12 +6,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.buahin.R
 import com.example.buahin.model.Product
 import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
@@ -72,26 +74,35 @@ fun CartScreen(navController: NavController, vm: CartViewModel = hiltViewModel()
             },
             floatingActionButtonPosition = FabPosition.Center,
         ) {
-            LazyColumn(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .fillMaxSize()
-            ) {
-                items(state.items.size) {
-                    val item = state.items[it]
-                    CartCard(
-                        title = item.product.name,
-                        subtitle = item.product.summary,
-                        thumbnail = item.product.thumbnail,
-                        qty = item.qty,
-                        subtotal = item.subtotalIdr(),
-                        onIncrease = { onQtyChanged(it, item.qty + 1) },
-                        onDecrease = { onQtyChanged(it, item.qty - 1) },
-                        onRemove = { onQtyChanged(it, 0) },
-                    )
-                    ItemDivider(0.dp)
+            if (state.items.isEmpty())
+                Column(
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxSize(),
+                ) {
+                    LoadingAnimation(R.raw.empty, modifier = Modifier.size(250.dp))
                 }
-            }
+            else
+                LazyColumn(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
+                        .fillMaxSize()
+                ) {
+                    items(state.items.size) {
+                        val item = state.items[it]
+                        CartCard(
+                            title = item.product.name,
+                            subtitle = item.product.summary,
+                            thumbnail = item.product.thumbnail,
+                            qty = item.qty,
+                            subtotal = item.subtotalIdr(),
+                            onIncrease = { onQtyChanged(it, item.qty + 1) },
+                            onDecrease = { onQtyChanged(it, item.qty - 1) },
+                            onRemove = { onQtyChanged(it, 0) },
+                        )
+                        ItemDivider(0.dp)
+                    }
+                }
         }
     }
 }
