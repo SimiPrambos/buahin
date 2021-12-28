@@ -9,6 +9,7 @@ import com.example.buahin.model.Product
 import com.example.buahin.model.Product.Companion.toProductFromMap
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 import java.util.*
 
@@ -39,7 +40,8 @@ class OrderRepository(
 
     suspend fun findAll(): List<Order> {
         return try {
-            ref.get().await().documents.mapNotNull {
+            ref.orderBy("created_at", Query.Direction.DESCENDING).get()
+                .await().documents.mapNotNull {
                 it.toOrder().apply {
                     val detailsRef = ref.document(id).collection("details").get().await()
                     details = detailsRef.documents.mapNotNull { detail ->
