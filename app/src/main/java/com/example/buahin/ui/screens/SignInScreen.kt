@@ -48,6 +48,8 @@ fun SignInScreen(navController: NavController, vm: AuthViewModel = hiltViewModel
     val scope = rememberCoroutineScope()
 
     fun onSignInPressed() {
+        navController.popBackStack()
+        navController.navigateToSplashScreen()
         scope.launch {
             vm.onEvent(AuthEvent.SignIn(emailState.value.text, passwordState.value.text))
         }

@@ -6,13 +6,17 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buahin.ui.screens.OnboardingScreen
 import com.example.buahin.ui.screens.Routes
+import com.example.buahin.ui.screens.SplashScreen
 
-val START_UP_START_DESTINATION = Routes.Onboarding.route
+val START_UP_START_DESTINATION = Routes.SplashScreen.route
 
 fun NavGraphBuilder.StartUpNavigation(navController: NavController, route: String) {
     navigation(route = route, startDestination = START_UP_START_DESTINATION) {
         composable(Routes.Onboarding.route) {
             OnboardingScreen(navController)
+        }
+        composable(Routes.SplashScreen.route) {
+            SplashScreen()
         }
     }
 }
