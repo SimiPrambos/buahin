@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2021 SimiPrambos <simi.prambos@gmail.com> - All Rights Reserved
+ * settings.gradle
+ * Buahin <https://github.com/SimiPrambos/buahin.git>
+ * UI Design by Afsar <https://www.figma.com/community/file/882645007956337261>
+ */
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {

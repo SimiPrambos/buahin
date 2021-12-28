@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2021 SimiPrambos <simi.prambos@gmail.com> - All Rights Reserved
+ * CategoryRepository.kt
+ * Buahin <https://github.com/SimiPrambos/buahin.git>
+ * UI Design by Afsar <https://www.figma.com/community/file/882645007956337261>
+ */
+
 package com.example.buahin.repository
 
 import com.example.buahin.model.Category

@@ -1,3 +1,10 @@
+/*
+ * Copyright (C) 2021 SimiPrambos <simi.prambos@gmail.com> - All Rights Reserved
+ * CartButton.kt
+ * Buahin <https://github.com/SimiPrambos/buahin.git>
+ * UI Design by Afsar <https://www.figma.com/community/file/882645007956337261>
+ */
+
 package com.example.buahin.ui.components
 
 import androidx.compose.foundation.layout.PaddingValues

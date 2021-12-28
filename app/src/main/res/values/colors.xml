@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2021 SimiPrambos <simi.prambos@gmail.com> - All Rights Reserved
+  ~ colors.xml
+  ~ Buahin <https://github.com/SimiPrambos/buahin.git>
+  ~ UI Design by Afsar <https://www.figma.com/community/file/882645007956337261>
+  -->
+
 <resources>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
