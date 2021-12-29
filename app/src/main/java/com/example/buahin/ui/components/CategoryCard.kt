@@ -7,48 +7,51 @@
 
 package com.example.buahin.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.buahin.R
-import com.example.buahin.ui.theme.Dark
-import com.example.buahin.ui.theme.Grey200
-import com.example.buahin.ui.theme.Shapes
-import com.example.buahin.ui.theme.Typography
+import coil.compose.rememberImagePainter
+import com.example.buahin.ui.theme.*
 import com.example.buahin.util.noRippleClickable
 import com.google.accompanist.placeholder.material.placeholder
 
 object CategoryCard {
     @Composable
-    fun Horizontal(title: String? = null, onClick: () -> Unit = {}) {
+    fun Horizontal(title: String? = null, thumbnail: String? = null, onClick: () -> Unit = {}) {
         Card(
-            backgroundColor = Grey200,
             shape = Shapes.large,
             elevation = 0.dp,
+            border = BorderStroke(0.5.dp, Grey300),
             modifier = Modifier.noRippleClickable(onClick = onClick)
         ) {
             Row(
                 modifier = Modifier.size(245.dp, 100.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.fruits),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(100.dp)
-                        .padding(15.dp)
-                        .placeholder(title.isNullOrEmpty()),
-                )
+                if (thumbnail.isNullOrEmpty())
+                    Box(
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(15.dp)
+                            .placeholder(true)
+                    )
+                else
+                    Image(
+                        painter = rememberImagePainter(thumbnail),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(15.dp),
+                    )
                 Text(
                     text = title ?: "Category",
                     style = Typography.h6,
@@ -61,14 +64,14 @@ object CategoryCard {
     }
 
     @Composable
-    fun Vertical(title: String? = null, onClick: () -> Unit = {}) {
+    fun Vertical(title: String? = null, thumbnail: String? = null, onClick: () -> Unit = {}) {
         Card(
-            backgroundColor = Grey200,
             shape = Shapes.large,
             elevation = 0.dp,
+            border = BorderStroke(0.5.dp, Grey300),
             modifier = Modifier
                 .width(170.dp)
-                .clickable(onClick = onClick),
+                .noRippleClickable(onClick = onClick),
         ) {
             Column(
                 modifier = Modifier
@@ -77,15 +80,22 @@ object CategoryCard {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceAround,
             ) {
-                Image(
-                    painter = painterResource(id = R.drawable.fruits),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .height(100.dp)
-                        .padding(15.dp)
-                        .fillMaxWidth()
-                        .placeholder(title.isNullOrEmpty()),
-                )
+                if (thumbnail.isNullOrEmpty())
+                    Box(
+                        modifier = Modifier
+                            .size(100.dp)
+                            .padding(15.dp)
+                            .placeholder(true)
+                    )
+                else
+                    Image(
+                        painter = rememberImagePainter(thumbnail),
+                        contentDescription = "",
+                        modifier = Modifier
+                            .height(100.dp)
+                            .padding(15.dp)
+                            .fillMaxWidth(),
+                    )
                 Text(
                     text = title ?: "Buah & Sayur",
                     style = Typography.h6,

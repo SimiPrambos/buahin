@@ -66,7 +66,7 @@ fun ExploreScreen(navController: NavController, vm: ExploreViewModel = hiltViewM
                 }
             else
                 state.categories.forEach { item ->
-                    CategoryCard.Vertical(title = item.name) {
+                    CategoryCard.Vertical(title = item.name, item.thumbnail) {
                         navController.navigateToProducts(
                             id = item.id,
                             name = item.name,
