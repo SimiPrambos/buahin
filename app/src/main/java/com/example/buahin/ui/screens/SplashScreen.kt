@@ -31,7 +31,7 @@ fun SplashScreen() {
         ) {
             LoadingAnimation(
                 animationId = R.raw.loading,
-                modifier = Modifier.size(150.dp)
+                modifier = Modifier.size(100.dp)
             )
         }
     }
