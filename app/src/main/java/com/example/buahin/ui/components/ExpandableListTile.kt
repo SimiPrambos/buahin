@@ -8,8 +8,6 @@
 package com.example.buahin.ui.components
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -19,11 +17,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.buahin.R
-import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Grey500
 import com.example.buahin.ui.theme.Typography
@@ -63,7 +59,7 @@ fun ExpandableListTile(title: String, description: String, expand: Boolean = fal
         AnimatedVisibility(visible = expanded.value) {
             Text(
                 text = description,
-                style = Typography.caption,
+                style = Typography.subtitle2,
                 fontSize = 13.sp,
                 lineHeight = 21.sp,
                 color = Grey500,
