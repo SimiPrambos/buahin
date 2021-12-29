@@ -25,12 +25,8 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
     val state: State<CartState> = _state
 
     init {
-        cartRepository.listen {
-            viewModelScope.launch {
-                _state.value = _state.value.copy(
-                    items = cartRepository.toCarts(it)
-                )
-            }
+        cartRepository.listen { items ->
+            _state.value = _state.value.copy(items = items)
         }
     }
 
@@ -55,7 +51,7 @@ class CartViewModel @Inject constructor(private val cartRepository: CartReposito
                 val cart = items.removeAt(event.index)
                 _state.value = _state.value.copy(items = items)
                 viewModelScope.launch {
-                    cartRepository.delete(cart.id)
+                    cartRepository.remove(cart.id)
                 }
             }
             is CartEvent.CartAdded -> {

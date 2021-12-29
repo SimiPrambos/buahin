@@ -13,10 +13,15 @@ import com.example.buahin.model.Cart.Companion.toCart
 import com.example.buahin.model.Cart.Companion.toQty
 import com.example.buahin.model.Product
 import com.example.buahin.model.Product.Companion.toProduct
+import com.example.buahin.model.Product.Companion.toProductFromMap
 import com.google.firebase.firestore.*
 import kotlinx.coroutines.tasks.await
 
-class CartRepository(private val uuid: String, private val firestore: FirebaseFirestore) {
+class CartRepository(
+    private val uuid: String,
+    private val firestore: FirebaseFirestore,
+    private val productRepository: ProductRepository,
+) {
     private var listener: ListenerRegistration? = null
 
     private val ref: CollectionReference
@@ -34,18 +39,15 @@ class CartRepository(private val uuid: String, private val firestore: FirebaseFi
         ref.document(id).delete().await()
     }
 
-    suspend fun toCarts(docs: List<DocumentSnapshot>): List<Cart> {
-        return docs.mapNotNull {
-            val product = it.getDocumentReference("product")!!.get().await().toProduct()
-            it.toCart(product)
-        }
+    fun toCarts(docs: List<DocumentSnapshot>): List<Cart> {
+        return docs.mapNotNull { it.toCart(it.toProductFromMap()) }
     }
 
-    fun listen(callback: (List<DocumentSnapshot>) -> Unit) {
+    fun listen(callback: (List<Cart>) -> Unit) {
         listener = ref.addSnapshotListener { data, e ->
             if (e != null) return@addSnapshotListener
             if (data == null) return@addSnapshotListener
-            callback(data.documents)
+            callback(toCarts(data.documents))
         }
     }
 
@@ -63,11 +65,10 @@ class CartRepository(private val uuid: String, private val firestore: FirebaseFi
 
     suspend fun createOrUpdate(product: Product, qty: Int) {
         try {
-            val productRef = firestore.document(product.ref)
-            val carts = ref.whereEqualTo("product", productRef).get().await()
+            val carts = ref.whereEqualTo("product", product.id).get().await()
             if (carts.isEmpty) {
                 val data = hashMapOf(
-                    "product" to productRef,
+                    "product" to product.id,
                     "qty" to qty
                 )
                 ref.add(data).await()

@@ -19,7 +19,7 @@ data class Product(
     val description: String? = null,
     val nutrition: String? = null,
     val howToSave: String? = null,
-    val ref: String,
+    val categoryId: String,
 ) {
     fun idr() : String {
         return Converter.idr(price)
@@ -27,10 +27,12 @@ data class Product(
 
     fun toMap() : HashMap<String, Any> {
         return hashMapOf(
+            "id" to id,
             "name" to name,
             "summary" to summary,
             "price" to price,
             "thumbnail" to thumbnail,
+            "category_id" to categoryId,
         )
     }
 
@@ -45,18 +47,18 @@ data class Product(
                 description = getString("description"),
                 nutrition = getString("nutrition"),
                 howToSave = getString("how_to_save"),
-                ref = reference.path,
+                categoryId = getString("category_id")!!,
             )
         }
 
         fun DocumentSnapshot.toProductFromMap(): Product {
             return Product(
-                id = id,
+                id = getString("product.id")!!,
                 name = getString("product.name")!!,
                 summary = getString("product.summary")!!,
                 price = getDouble("product.price")!!.toFloat(),
                 thumbnail = getString("product.thumbnail")!!,
-                ref = reference.path,
+                categoryId = getString("product.category_id")!!,
             )
         }
     }

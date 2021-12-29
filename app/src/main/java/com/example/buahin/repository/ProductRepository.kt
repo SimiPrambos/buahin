@@ -10,13 +10,17 @@ package com.example.buahin.repository
 import android.util.Log
 import com.example.buahin.model.Product
 import com.example.buahin.model.Product.Companion.toProduct
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
 class ProductRepository(private val firestore: FirebaseFirestore) {
+    private val ref: CollectionReference
+        get() = firestore.collection("products")
+
     suspend fun findOffers(): List<Product> {
         return try {
-            firestore.collectionGroup("products").whereEqualTo("is_offer", true)
+            ref.whereEqualTo("is_offer", true)
                 .limit(5).get()
                 .await().documents.mapNotNull { it.toProduct() }
         } catch (e: Exception) {
@@ -27,7 +31,7 @@ class ProductRepository(private val firestore: FirebaseFirestore) {
 
     suspend fun findBestSeller(): List<Product> {
         return try {
-            firestore.collectionGroup("products").whereEqualTo("is_best_seller", true)
+            ref.whereEqualTo("is_best_seller", true)
                 .limit(5).get()
                 .await().documents.mapNotNull { it.toProduct() }
         } catch (e: Exception) {
@@ -37,19 +41,20 @@ class ProductRepository(private val firestore: FirebaseFirestore) {
     }
 
     suspend fun findOne(id: String): Product? {
+        Log.e("PRODUCT", id)
         return try {
-            firestore.collectionGroup("products")
-                .whereEqualTo("id", id).get()
-                .await().documents.firstNotNullOfOrNull { it.toProduct() }
+            val doc = ref.document(id).get().await()
+            if (doc.exists()) doc.toProduct() else null
         } catch (e: Exception) {
-            Log.println(Log.ERROR, "PRODUCT", e.toString())
+            Log.e("PRODUCT", e.toString())
             null
         }
     }
 
-    suspend fun findByCategory(category: String): List<Product> {
+    suspend fun findByCategory(categoryId: String): List<Product> {
         return try {
-            firestore.collection("categories/$category/products").get()
+            ref.whereEqualTo("category_id", categoryId)
+                .get()
                 .await().documents.mapNotNull { it.toProduct() }
         } catch (e: Exception) {
             Log.println(Log.ERROR, "PRODUCT", e.toString())

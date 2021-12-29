@@ -193,7 +193,7 @@ fun ProductDetailScreen(
                         if (!state.value.description.isNullOrEmpty())
                             item {
                                 ExpandableListTile(
-                                    "Product Details",
+                                    "Information",
                                     state.value.description,
                                     expand = true,
                                 )

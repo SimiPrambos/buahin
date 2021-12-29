@@ -49,13 +49,13 @@ class OrderRepository(
         return try {
             ref.orderBy("created_at", Query.Direction.DESCENDING).get()
                 .await().documents.mapNotNull {
-                it.toOrder().apply {
-                    val detailsRef = ref.document(id).collection("details").get().await()
-                    details = detailsRef.documents.mapNotNull { detail ->
-                        detail.toCart(detail.toProductFromMap())
+                    it.toOrder().apply {
+                        val detailsRef = ref.document(id).collection("details").get().await()
+                        details = detailsRef.documents.mapNotNull { detail ->
+                            detail.toCart(detail.toProductFromMap())
+                        }
                     }
                 }
-            }
         } catch (e: Exception) {
             Log.e("ORDERS", e.toString())
             emptyList()

@@ -61,9 +61,10 @@ object AppModule {
     @Singleton
     fun providerCartRepository(
         @Named("UUID") uuid: String,
-        firestore: FirebaseFirestore
+        firestore: FirebaseFirestore,
+        productRepository: ProductRepository,
     ): CartRepository {
-        return CartRepository(uuid, firestore)
+        return CartRepository(uuid, firestore, productRepository)
     }
 
     @Provides
