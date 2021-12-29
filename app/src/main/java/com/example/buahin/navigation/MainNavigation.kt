@@ -13,9 +13,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.example.buahin.ui.screens.*
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 val MAIN_START_DESTINATION = Routes.Shop.route
 
+@ExperimentalPagerApi
 @ExperimentalMaterialApi
 fun NavGraphBuilder.MainNavigation(navController: NavController, route: String) {
     navigation(route = route, startDestination = MAIN_START_DESTINATION) {

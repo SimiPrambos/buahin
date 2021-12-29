@@ -30,6 +30,7 @@ import com.example.buahin.ui.screens.Routes
 import com.example.buahin.ui.theme.Dark
 import com.example.buahin.ui.theme.Primary
 import com.example.buahin.ui.theme.Typography
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 class Navigation(private val navController: NavHostController) {
     data class Menu(val label: String, val icon: Int, val route: String)
@@ -57,6 +58,7 @@ class Navigation(private val navController: NavHostController) {
         )
     }
 
+    @ExperimentalPagerApi
     @ExperimentalMaterialApi
     @Composable
     fun Build(initialRoute: String = STARTUP_ROUTE) {

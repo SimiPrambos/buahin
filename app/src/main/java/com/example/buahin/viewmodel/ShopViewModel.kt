@@ -11,8 +11,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.buahin.model.Banner
 import com.example.buahin.model.Category
 import com.example.buahin.model.Product
+import com.example.buahin.repository.BannerRepository
 import com.example.buahin.repository.CategoryRepository
 import com.example.buahin.repository.ProductRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +25,7 @@ import javax.inject.Inject
 class ShopViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
     private val productRepository: ProductRepository,
+    private val bannerRepository: BannerRepository,
 ) : ViewModel() {
 
     private val _state = mutableStateOf(ShopState())
@@ -30,6 +33,14 @@ class ShopViewModel @Inject constructor(
 
     fun onEvent(event: ShopEvent) {
         when (event) {
+            is ShopEvent.LoadBanner -> {
+                viewModelScope.launch {
+                    val banners = bannerRepository.findAll()
+                    _state.value = _state.value.copy(
+                        banners = banners
+                    )
+                }
+            }
             is ShopEvent.LoadCategory -> {
                 viewModelScope.launch {
                     val categories = categoryRepository.findSummary()
@@ -55,12 +66,14 @@ class ShopViewModel @Inject constructor(
 }
 
 data class ShopState(
+    val banners: List<Banner> = emptyList(),
     val categories: List<Category> = emptyList(),
     val offers: List<Product> = emptyList(),
     val bestSeller: List<Product> = emptyList(),
 )
 
 sealed class ShopEvent {
+    object LoadBanner : ShopEvent()
     object LoadCategory : ShopEvent()
     object LoadOffer : ShopEvent()
     object LoadBestSeller : ShopEvent()

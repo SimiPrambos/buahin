@@ -24,14 +24,17 @@ import com.example.buahin.ui.components.*
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.viewmodel.ShopEvent
 import com.example.buahin.viewmodel.ShopViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
 import cz.levinzonr.saferoute.core.annotations.Route
 
+@ExperimentalPagerApi
 @Route("shop")
 @Composable
 fun ShopScreen(navController: NavController, vm: ShopViewModel = hiltViewModel()) {
     val state = vm.state.value
 
     LaunchedEffect(true) {
+        vm.onEvent(ShopEvent.LoadBanner)
         vm.onEvent(ShopEvent.LoadOffer)
         vm.onEvent(ShopEvent.LoadCategory)
         vm.onEvent(ShopEvent.LoadBestSeller)
@@ -43,7 +46,7 @@ fun ShopScreen(navController: NavController, vm: ShopViewModel = hiltViewModel()
             .verticalScroll(rememberScrollState()),
     ) {
         SearchBox(modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp))
-        Banner(modifier = Modifier.padding(horizontal = 16.dp))
+        BannerSlider(items = state.banners)
         Spacer(modifier = Modifier.height(10.dp))
         Section(
             "Exclusive Offer",
@@ -111,6 +114,7 @@ fun ShopScreen(navController: NavController, vm: ShopViewModel = hiltViewModel()
     }
 }
 
+@ExperimentalPagerApi
 @Preview
 @Composable
 fun ShopScreenPreview() {

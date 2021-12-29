@@ -75,4 +75,10 @@ object AppModule {
     ): OrderRepository {
         return OrderRepository(uuid, firestore, cartRepository)
     }
+
+    @Provides
+    @Singleton
+    fun provideBannerRepository(firestore: FirebaseFirestore): BannerRepository {
+        return BannerRepository(firestore)
+    }
 }

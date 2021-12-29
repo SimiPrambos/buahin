@@ -19,6 +19,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.buahin.navigation.Navigation
 import com.example.buahin.ui.theme.BuahinTheme
 import com.example.buahin.viewmodel.AuthViewModel
+import com.google.accompanist.pager.ExperimentalPagerApi
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,6 +27,7 @@ class MainActivity : ComponentActivity() {
 
     private val authViewModel by viewModels<AuthViewModel>()
 
+    @ExperimentalPagerApi
     @ExperimentalMaterialApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
